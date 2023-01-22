@@ -2,14 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainFragment">
 
     <!--
-        RecyclerView has pretty large end padding.
-        This works fine in a pair with SnapHelper, it doesn't allow user o scroll over elements
+        This RecyclerView has pretty large end padding on purpose.
+        This works fine in a pair with SnapHelper, it doesn't allow user to scroll over elements.
         From another side, this way we can bring focus to the very last element
     -->
     <androidx.recyclerview.widget.RecyclerView
@@ -28,10 +27,11 @@
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="TODO" />
 
+    <include layout="@layout/loading_screen_main" />
 </androidx.constraintlayout.widget.ConstraintLayout>

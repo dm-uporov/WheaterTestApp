@@ -27,7 +27,6 @@ class ForecastItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     fun bindIconView(iconUrl: String?) {
         iconView.load(iconUrl) {
-            crossfade(true)
             placeholder(R.drawable.ic_placeholder)
         }
     }

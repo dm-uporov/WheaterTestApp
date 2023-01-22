@@ -2,6 +2,7 @@ package com.github.dm.uporov.weathertestapp.repository
 
 import javax.inject.Inject
 
+
 interface OpenWeatherIconUrlHelper {
 
     fun createUrl(iconId: String?): String?

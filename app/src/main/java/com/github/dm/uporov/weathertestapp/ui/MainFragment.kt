@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.github.dm.uporov.weathertestapp.R
 import com.github.dm.uporov.weathertestapp.ui.model.ForecastShortItem
 import com.github.dm.uporov.weathertestapp.ui.items.ForecastItemsAdapter
@@ -40,6 +42,7 @@ class MainFragment : Fragment(), OnForecastItemClickListener {
     // TODO
     private lateinit var textView: TextView
     private lateinit var recyclerView: RecyclerView
+    private lateinit var shimmerView: ShimmerFrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,7 @@ class MainFragment : Fragment(), OnForecastItemClickListener {
 
         textView =  view.findViewById(R.id.message)
 
+        shimmerView = view.findViewById(R.id.shimmer_view_container)
         recyclerView = view.findViewById(R.id.forecast_recycler)
         recyclerView.adapter = adapter
         snapHelper.attachToRecyclerView(recyclerView)
@@ -66,6 +70,13 @@ class MainFragment : Fragment(), OnForecastItemClickListener {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
+                    if (it.isLoading) {
+                        shimmerView.startShimmer()
+                        shimmerView.isVisible = true
+                    } else {
+                        shimmerView.stopShimmer()
+                        shimmerView.isVisible = false
+                    }
                     adapter.updateItems(it.forecastShortItems)
                 }
             }
