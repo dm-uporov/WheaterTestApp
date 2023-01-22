@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.dm.uporov.weathertestapp.repository.ForecastRepository
 import com.github.dm.uporov.weathertestapp.ui.model.ForecastDetailedItem
+import com.github.dm.uporov.weathertestapp.ui.model.MainUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +22,7 @@ class MainViewModel @Inject constructor(
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
     private var detailedItems: List<ForecastDetailedItem> = emptyList()
-    private val selectedItem: Int = 0
+    private var selectedItem: Int = 0
 
     init {
         viewModelScope.launch {
@@ -35,6 +36,16 @@ class MainViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    fun onForecastItemClicked(position: Int) {
+        selectedItem = position
+        _uiState.update {
+            it.copy(
+                isLoading = false,
+                detailedItem = detailedItems[position]
+            )
         }
     }
 }

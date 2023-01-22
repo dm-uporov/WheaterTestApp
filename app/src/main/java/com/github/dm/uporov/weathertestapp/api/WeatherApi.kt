@@ -9,7 +9,7 @@ interface WeatherApi {
 
     //lat={lat}&lon={lon}&cnt={cnt}&appid={API key}
     // TODO move version to interceptors or http client definition
-    @GET("/data/2.5/forecast")
+    @GET("/data/2.5/forecast?units=metric")
     suspend fun getForecast(
         @Query("lat") latitude: Float,
         @Query("lon") longitude: Float,

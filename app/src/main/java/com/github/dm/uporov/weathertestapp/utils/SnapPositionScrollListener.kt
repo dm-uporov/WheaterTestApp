@@ -9,7 +9,7 @@ class SnapPositionScrollListener @Inject constructor(
 
     private var snapPosition = RecyclerView.NO_POSITION
 
-    var onSnapPositionChanged: ((Int) -> Unit)? = null
+    var onSnapPositionChangedListener: ((Int) -> Unit)? = null
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         maybeNotifySnapPositionChange(recyclerView)
@@ -26,7 +26,7 @@ class SnapPositionScrollListener @Inject constructor(
         val snapPositionChanged = this.snapPosition != snapPosition
         if (snapPositionChanged) {
             this.snapPosition = snapPosition
-            onSnapPositionChanged?.invoke(snapPosition)
+            onSnapPositionChangedListener?.invoke(snapPosition)
         }
     }
 }

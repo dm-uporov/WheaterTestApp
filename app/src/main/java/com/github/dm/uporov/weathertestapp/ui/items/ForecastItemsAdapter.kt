@@ -1,25 +1,19 @@
 package com.github.dm.uporov.weathertestapp.ui.items
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import com.github.dm.uporov.weathertestapp.R
 import com.github.dm.uporov.weathertestapp.ui.model.ForecastShortItem
+import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Inject
 
+@FragmentScoped
 class ForecastItemsAdapter @Inject constructor(
-    private val onForecastItemClickListener: OnForecastItemClickListener
-) : RecyclerView.Adapter<ForecastItemViewHolder>() {
+    diffCallback: ForecastShortItemDiffCallback
+) : ListAdapter<ForecastShortItem, ForecastItemViewHolder>(diffCallback) {
 
-    private val items = mutableListOf<ForecastShortItem>()
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateItems(newItems: List<ForecastShortItem>) {
-        items.clear()
-        items.addAll(newItems)
-        notifyDataSetChanged()
-    }
+    var onForecastItemClickListener: OnForecastItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForecastItemViewHolder {
         return LayoutInflater
@@ -29,15 +23,17 @@ class ForecastItemsAdapter @Inject constructor(
     }
 
     override fun onBindViewHolder(holder: ForecastItemViewHolder, position: Int) {
-        val item = items[position]
+        val item = getItem(position)
         holder.bindDate(item.dateTitle)
-        holder.bindIconView(item.iconUrl)
-        holder.bindDayTemperatureView(item.dayTemperature)
-        holder.bindNightTemperatureView(item.nightTemperature)
+        holder.bindIcon(item.iconUrl)
+        holder.bindMaxTemperature(item.temperatureMax)
+        holder.bindMinTemperature(item.temperatureMin)
         holder.setOnClickListener {
-            onForecastItemClickListener.onForecastItemClicked(items[position], position, holder.itemView)
+            onForecastItemClickListener?.onForecastItemClicked(
+                item = item,
+                position = position,
+                clickedView = holder.itemView
+            )
         }
     }
-
-    override fun getItemCount(): Int = items.count()
 }

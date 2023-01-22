@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.github.dm.uporov.weathertestapp.R
+import com.github.dm.uporov.weathertestapp.utils.bindText
 
 class ForecastItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -25,18 +26,18 @@ class ForecastItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         dateView.text = date
     }
 
-    fun bindIconView(iconUrl: String?) {
+    fun bindIcon(iconUrl: String?) {
         iconView.load(iconUrl) {
             placeholder(R.drawable.ic_placeholder)
         }
     }
 
-    fun bindDayTemperatureView(dayTemperature: String) {
-        dayTemperatureView.text = dayTemperature
+    fun bindMaxTemperature(dayTemperature: String?) {
+        dayTemperatureView.bindText(dayTemperature)
     }
 
-    fun bindNightTemperatureView(nightTemperature: String) {
-        nightTemperatureView.text = nightTemperature
+    fun bindMinTemperature(nightTemperature: String?) {
+        nightTemperatureView.bindText(nightTemperature)
     }
 
     fun setOnClickListener(onClick: (() -> Unit)?) {

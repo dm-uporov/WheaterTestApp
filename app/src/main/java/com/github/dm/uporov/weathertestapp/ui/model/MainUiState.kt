@@ -1,4 +1,4 @@
-package com.github.dm.uporov.weathertestapp.ui
+package com.github.dm.uporov.weathertestapp.ui.model
 
 import com.github.dm.uporov.weathertestapp.ui.model.ForecastDetailedItem
 import com.github.dm.uporov.weathertestapp.ui.model.ForecastShortItem

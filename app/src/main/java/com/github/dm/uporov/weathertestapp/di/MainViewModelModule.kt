@@ -1,6 +1,7 @@
 package com.github.dm.uporov.weathertestapp.di
 
 import com.github.dm.uporov.weathertestapp.repository.*
+import com.github.dm.uporov.weathertestapp.repository.converter.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -26,5 +27,9 @@ interface MainViewModelModule {
     @ViewModelScoped
     @Binds
     fun bindOpenWeatherIconUrlHelper(helper: OpenWeatherIconUrlHelperImpl): OpenWeatherIconUrlHelper
+
+    @ViewModelScoped
+    @Binds
+    fun bindTemperatureConverter(converter: TemperatureConverterImpl):  TemperatureConverter
 
 }
