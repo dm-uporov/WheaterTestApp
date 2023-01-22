@@ -17,7 +17,7 @@ class SnapPositionScrollListener @Inject constructor(
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-            maybeNotifySnapPositionChange(recyclerView)
+             maybeNotifySnapPositionChange(recyclerView)
         }
     }
 

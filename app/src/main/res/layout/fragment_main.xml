@@ -7,6 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainFragment">
 
+    <!--
+        RecyclerView has pretty large end padding.
+        This works fine in a pair with SnapHelper, it doesn't allow user o scroll over elements
+        From another side, this way we can bring focus to the very last element
+    -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/forecast_recycler"
         android:layout_width="match_parent"
@@ -15,7 +20,7 @@
         android:orientation="horizontal"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
-        android:paddingEnd="16dp"
+        android:paddingEnd="1000dp"
         app:layoutManager=".utils.ScaleLeftElementLayoutManager"
         app:layout_constraintTop_toTopOf="parent" />
 

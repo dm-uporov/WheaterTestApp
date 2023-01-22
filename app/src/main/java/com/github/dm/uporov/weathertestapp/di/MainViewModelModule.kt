@@ -12,7 +12,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-interface MainModule {
+interface MainViewModelModule {
 
     @ViewModelScoped
     @Binds
@@ -21,4 +21,5 @@ interface MainModule {
     @ViewModelScoped
     @Binds
     fun bindConverter(converterImpl: ForecastItemConverterImpl): ForecastItemConverter
+
 }

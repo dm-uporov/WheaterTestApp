@@ -9,7 +9,10 @@ import kotlin.math.abs
 
 class LeftBorderSnapHelper @Inject constructor() : LinearSnapHelper() {
 
+    private val smallFlingVelocity = 50.dp
+
     private var orientationHelper: OrientationHelper? = null
+    private var forcedSnapView: View? = null
 
     private fun getHorizontalHelper(
         layoutManager: RecyclerView.LayoutManager
@@ -26,23 +29,35 @@ class LeftBorderSnapHelper @Inject constructor() : LinearSnapHelper() {
         return layoutManager.getPosition(snapView)
     }
 
+    fun snapToView(view: View, recyclerView: RecyclerView) {
+        recyclerView.fling(smallFlingVelocity, 0)
+        forcedSnapView = view
+    }
+
     override fun calculateDistanceToFinalSnap(
         layoutManager: RecyclerView.LayoutManager,
         targetView: View
     ): IntArray {
         val resultArray = IntArray(2)
-        resultArray[0] = distanceToLeftBorder(targetView, getHorizontalHelper(layoutManager))
+        val horizontalDistance = distanceToLeftBorder(targetView, getHorizontalHelper(layoutManager))
+        resultArray[0] = horizontalDistance
+        if (targetView == forcedSnapView && horizontalDistance == 0) {
+            forcedSnapView = null
+        }
         return resultArray
     }
 
     private fun distanceToLeftBorder(targetView: View, helper: OrientationHelper): Int {
         val childStart = helper.getDecoratedStart(targetView)
         val containerStart = helper.startAfterPadding
-        return childStart - containerStart - 10
+        return childStart - containerStart
     }
 
 
     override fun findSnapView(layoutManager: RecyclerView.LayoutManager): View? {
+        if (forcedSnapView != null) {
+            return forcedSnapView
+        }
         return findLeftView(layoutManager, getHorizontalHelper(layoutManager))
     }
 

@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.dm.uporov.weathertestapp.R
 import javax.inject.Inject
 
-class ForecastItemsAdapter @Inject constructor() : RecyclerView.Adapter<ForecastItemViewHolder>() {
+class ForecastItemsAdapter @Inject constructor(
+    private val onForecastItemClickListener: OnForecastItemClickListener
+) : RecyclerView.Adapter<ForecastItemViewHolder>() {
 
     private val items = mutableListOf<ForecastItem>()
 
@@ -28,6 +30,9 @@ class ForecastItemsAdapter @Inject constructor() : RecyclerView.Adapter<Forecast
     override fun onBindViewHolder(holder: ForecastItemViewHolder, position: Int) {
         val item = items[position]
         holder.bindTitle(item.dateTitle)
+        holder.setOnClickListener {
+            onForecastItemClickListener.onForecastItemClicked(items[position], position, holder.itemView)
+        }
     }
 
     override fun getItemCount(): Int = items.count()

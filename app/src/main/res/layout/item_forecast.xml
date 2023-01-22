@@ -4,6 +4,7 @@
     android:layout_width="100dp"
     android:layout_height="@dimen/forecast_card_height"
     android:layout_margin="5dp"
+    android:foreground="?android:attr/selectableItemBackground"
     app:cardCornerRadius="6dp"
     app:cardElevation="4dp">
 

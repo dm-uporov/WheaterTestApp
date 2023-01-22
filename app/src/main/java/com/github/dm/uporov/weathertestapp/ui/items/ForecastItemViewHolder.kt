@@ -16,4 +16,12 @@ class ForecastItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     fun bindTitle(title: String) {
         titleTextView.text = title
     }
+
+    fun setOnClickListener(onClick: (() -> Unit)?) {
+        if (onClick == null) {
+            itemView.setOnClickListener(null)
+        } else {
+            itemView.setOnClickListener { onClick.invoke() }
+        }
+    }
 }

@@ -14,8 +14,8 @@ class ScaleLeftElementLayoutManager : LinearLayoutManager {
 
     private val minScale = 1f
     private val maxScale = 1.2f
-    private val leftScalePointX = (-20).px
-    private val rightScalePointX = 50.px
+    private val leftScalePointX = (-20).dp
+    private val rightScalePointX = 50.dp
 
     private val helper: OrientationHelper = OrientationHelper.createHorizontalHelper(this)
 

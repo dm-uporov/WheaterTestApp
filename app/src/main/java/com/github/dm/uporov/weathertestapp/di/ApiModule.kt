@@ -19,13 +19,14 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ApiModule {
 
+    private const val BASE_URL = "https://api.openweathermap.org/"
     private const val API_KEY_QUERY_KEY = "appid"
 
     @Singleton
     @Provides
     fun provideWeatherApi(client: OkHttpClient): WeatherApi {
         return Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/")
+            .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

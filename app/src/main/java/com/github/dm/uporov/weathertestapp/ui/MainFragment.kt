@@ -12,7 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dm.uporov.weathertestapp.R
+import com.github.dm.uporov.weathertestapp.ui.items.ForecastItem
 import com.github.dm.uporov.weathertestapp.ui.items.ForecastItemsAdapter
+import com.github.dm.uporov.weathertestapp.ui.items.OnForecastItemClickListener
 import com.github.dm.uporov.weathertestapp.utils.LeftBorderSnapHelper
 import com.github.dm.uporov.weathertestapp.utils.SnapPositionScrollListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +22,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), OnForecastItemClickListener {
 
     companion object {
         fun newInstance() = MainFragment()
@@ -37,6 +39,7 @@ class MainFragment : Fragment() {
 
     // TODO
     private lateinit var textView: TextView
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +58,7 @@ class MainFragment : Fragment() {
 
         textView =  view.findViewById(R.id.message)
 
-        val recyclerView : RecyclerView = view.findViewById(R.id.forecast_recycler)
+        recyclerView = view.findViewById(R.id.forecast_recycler)
         recyclerView.adapter = adapter
         snapHelper.attachToRecyclerView(recyclerView)
         recyclerView.addOnScrollListener(snapPositionScrollListener)
@@ -79,5 +82,9 @@ class MainFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         snapPositionScrollListener.onSnapPositionChanged = null
+    }
+
+    override fun onForecastItemClicked(item: ForecastItem, position: Int, clickedView: View) {
+        snapHelper.snapToView(clickedView, recyclerView)
     }
 }
