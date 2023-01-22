@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import javax.inject.Inject
 import kotlin.math.abs
 
-class LeftBorderSnapHelper @Inject constructor() : LinearSnapHelper() {
+private const val SMALL_FLING_VELOCITY_DP = 50
 
-    private val smallFlingVelocity = 50.dp
+class LeftBorderSnapHelper @Inject constructor() : LinearSnapHelper() {
 
     private var orientationHelper: OrientationHelper? = null
     private var forcedSnapView: View? = null
@@ -30,7 +30,7 @@ class LeftBorderSnapHelper @Inject constructor() : LinearSnapHelper() {
     }
 
     fun snapToView(view: View, recyclerView: RecyclerView) {
-        recyclerView.fling(smallFlingVelocity, 0)
+        recyclerView.fling(SMALL_FLING_VELOCITY_DP.dp, 0)
         forcedSnapView = view
     }
 
@@ -52,7 +52,6 @@ class LeftBorderSnapHelper @Inject constructor() : LinearSnapHelper() {
         val containerStart = helper.startAfterPadding
         return childStart - containerStart
     }
-
 
     override fun findSnapView(layoutManager: RecyclerView.LayoutManager): View? {
         if (forcedSnapView != null) {

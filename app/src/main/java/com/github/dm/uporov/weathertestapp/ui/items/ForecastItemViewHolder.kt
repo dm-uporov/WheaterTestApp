@@ -1,20 +1,43 @@
 package com.github.dm.uporov.weathertestapp.ui.items
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.github.dm.uporov.weathertestapp.R
 
 class ForecastItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private val titleTextView: TextView
+    private val dateView: TextView
+    private val iconView: ImageView
+    private val dayTemperatureView: TextView
+    private val nightTemperatureView: TextView
 
     init {
-        titleTextView = itemView.findViewById(R.id.title)
+        dateView = itemView.findViewById(R.id.date)
+        iconView = itemView.findViewById(R.id.icon)
+        dayTemperatureView = itemView.findViewById(R.id.day_temperature)
+        nightTemperatureView = itemView.findViewById(R.id.night_temperature)
     }
 
-    fun bindTitle(title: String) {
-        titleTextView.text = title
+    fun bindDate(date: String) {
+        dateView.text = date
+    }
+
+    fun bindIconView(iconUrl: String?) {
+        iconView.load(iconUrl) {
+            crossfade(true)
+            placeholder(R.drawable.ic_placeholder)
+        }
+    }
+
+    fun bindDayTemperatureView(dayTemperature: String) {
+        dayTemperatureView.text = dayTemperature
+    }
+
+    fun bindNightTemperatureView(nightTemperature: String) {
+        nightTemperatureView.text = nightTemperature
     }
 
     fun setOnClickListener(onClick: (() -> Unit)?) {

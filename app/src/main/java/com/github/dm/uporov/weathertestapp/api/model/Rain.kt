@@ -3,7 +3,7 @@ package com.github.dm.uporov.weathertestapp.api.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Sys(
-    @SerializedName("pod")
-    val pod: String?
+data class Rain(
+    @SerializedName("3h")
+    val threeHoursVolumeMm: Double?
 )

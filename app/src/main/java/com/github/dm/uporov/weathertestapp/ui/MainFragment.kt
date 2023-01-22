@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dm.uporov.weathertestapp.R
-import com.github.dm.uporov.weathertestapp.ui.items.ForecastItem
+import com.github.dm.uporov.weathertestapp.ui.model.ForecastShortItem
 import com.github.dm.uporov.weathertestapp.ui.items.ForecastItemsAdapter
 import com.github.dm.uporov.weathertestapp.ui.items.OnForecastItemClickListener
 import com.github.dm.uporov.weathertestapp.utils.LeftBorderSnapHelper
@@ -66,7 +66,7 @@ class MainFragment : Fragment(), OnForecastItemClickListener {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
-                    adapter.updateItems(it.forecastItems)
+                    adapter.updateItems(it.forecastShortItems)
                 }
             }
         }
@@ -84,7 +84,7 @@ class MainFragment : Fragment(), OnForecastItemClickListener {
         snapPositionScrollListener.onSnapPositionChanged = null
     }
 
-    override fun onForecastItemClicked(item: ForecastItem, position: Int, clickedView: View) {
+    override fun onForecastItemClicked(item: ForecastShortItem, position: Int, clickedView: View) {
         snapHelper.snapToView(clickedView, recyclerView)
     }
 }

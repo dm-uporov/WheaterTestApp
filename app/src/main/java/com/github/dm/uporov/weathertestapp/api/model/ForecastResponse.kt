@@ -1,12 +1,17 @@
 package com.github.dm.uporov.weathertestapp.api.model
 
+
 import com.google.gson.annotations.SerializedName
 
-
 data class ForecastResponse(
-    @SerializedName("cod") var cod: String? = null,
-    @SerializedName("message") var message: Int? = null,
-    @SerializedName("cnt") var cnt: Int? = null,
-    @SerializedName("list") var forecastsList: ArrayList<Forecast>,
-    @SerializedName("city") var city: City?
+    @SerializedName("cod")
+    val cod: String?,
+    @SerializedName("message")
+    val message: Int?,
+    @SerializedName("cnt")
+    val forecastsCount: Int,
+    @SerializedName("list")
+    val list: List<ForecastElement>,
+    @SerializedName("city")
+    val city: City?
 )

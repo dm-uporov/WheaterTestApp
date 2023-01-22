@@ -1,9 +1,6 @@
 package com.github.dm.uporov.weathertestapp.di
 
-import com.github.dm.uporov.weathertestapp.repository.ForecastItemConverter
-import com.github.dm.uporov.weathertestapp.repository.ForecastItemConverterImpl
-import com.github.dm.uporov.weathertestapp.repository.ForecastRepository
-import com.github.dm.uporov.weathertestapp.repository.ForecastRepositoryImpl
+import com.github.dm.uporov.weathertestapp.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,10 +13,18 @@ interface MainViewModelModule {
 
     @ViewModelScoped
     @Binds
-    fun bindWeatherRepository(repositoryImpl: ForecastRepositoryImpl) : ForecastRepository
+    fun bindWeatherRepository(repository: ForecastRepositoryImpl) : ForecastRepository
 
     @ViewModelScoped
     @Binds
-    fun bindConverter(converterImpl: ForecastItemConverterImpl): ForecastItemConverter
+    fun bindItemsConverter(converter: ForecastItemsConverterImpl): ForecastItemsConverter
+
+    @ViewModelScoped
+    @Binds
+    fun bindDateConverter(converter: DateConverterImpl): DateConverter
+
+    @ViewModelScoped
+    @Binds
+    fun bindOpenWeatherIconUrlHelper(helper: OpenWeatherIconUrlHelperImpl): OpenWeatherIconUrlHelper
 
 }
