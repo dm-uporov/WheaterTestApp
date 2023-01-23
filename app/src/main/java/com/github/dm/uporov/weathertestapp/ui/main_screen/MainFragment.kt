@@ -1,4 +1,4 @@
-package com.github.dm.uporov.weathertestapp.ui
+package com.github.dm.uporov.weathertestapp.ui.main_screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.github.dm.uporov.weathertestapp.R
-import com.github.dm.uporov.weathertestapp.ui.items.ForecastItemsAdapter
+import com.github.dm.uporov.weathertestapp.ui.main_screen.items.ForecastItemsAdapter
 import com.github.dm.uporov.weathertestapp.utils.LeftBorderSnapHelper
 import com.github.dm.uporov.weathertestapp.utils.SnapPositionScrollListener
 import dagger.hilt.android.AndroidEntryPoint

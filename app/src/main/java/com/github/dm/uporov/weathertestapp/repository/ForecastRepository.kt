@@ -1,7 +1,7 @@
 package com.github.dm.uporov.weathertestapp.repository
 
 import com.github.dm.uporov.weathertestapp.repository.converter.ForecastItemsConverter
-import com.github.dm.uporov.weathertestapp.ui.model.ForecastUiModel
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastUiModel
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject

@@ -1,7 +1,7 @@
-package com.github.dm.uporov.weathertestapp.ui.items
+package com.github.dm.uporov.weathertestapp.ui.main_screen.items
 
 import androidx.recyclerview.widget.DiffUtil
-import com.github.dm.uporov.weathertestapp.ui.model.ForecastShortItem
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastShortItem
 import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Inject
 

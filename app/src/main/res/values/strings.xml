@@ -8,4 +8,9 @@
     <string name="precipitation_format">Probability of precipitation: %s</string>
     <string name="today">Today</string>
     <string name="max_visibility">Maximum</string>
+
+    <string name="permission_required_text">In order to use the application, you must grant the coarse location permission.</string>
+    <string name="grant_permission">Grant permission</string>
+    <string name="permission_required_through_settings_text">In order to use the application, you must grant the coarse location permission.\n\nYou have to change it manually through the settings application.</string>
+    <string name="open_settings">Open settings</string>
 </resources>

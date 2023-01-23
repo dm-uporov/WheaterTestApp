@@ -1,9 +1,9 @@
 package com.github.dm.uporov.weathertestapp.repository.converter
 
 import com.github.dm.uporov.weathertestapp.api.model.ForecastResponse
-import com.github.dm.uporov.weathertestapp.ui.model.ForecastDetailedItem
-import com.github.dm.uporov.weathertestapp.ui.model.ForecastShortItem
-import com.github.dm.uporov.weathertestapp.ui.model.ForecastUiModel
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastDetailedItem
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastShortItem
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastUiModel
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
@@ -55,7 +55,7 @@ class ForecastItemsConverterImpl @Inject constructor(
                     pressure = pressureFormatter.format(it.detailedInfo?.pressurePHa),
                     humidity = humidityFormatter.format(it.detailedInfo?.humidityPercents),
                     visibility = visibilityFormatter.format(it.visibilityMeters),
-                    probabilityOfPrecipitation = probabilityOfPrecipitationFormatter.format(it.probabilityOffPrecipitation)
+                    probabilityOfPrecipitation = probabilityOfPrecipitationFormatter.format(it.probabilityOfPrecipitation)
                 )
             )
         }

@@ -1,7 +1,7 @@
-package com.github.dm.uporov.weathertestapp.ui.items
+package com.github.dm.uporov.weathertestapp.ui.main_screen.items
 
 import android.view.View
-import com.github.dm.uporov.weathertestapp.ui.model.ForecastShortItem
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastShortItem
 
 interface OnForecastItemClickListener {
 

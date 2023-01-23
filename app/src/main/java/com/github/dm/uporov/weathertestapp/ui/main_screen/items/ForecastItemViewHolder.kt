@@ -1,4 +1,4 @@
-package com.github.dm.uporov.weathertestapp.ui.items
+package com.github.dm.uporov.weathertestapp.ui.main_screen.items
 
 import android.view.View
 import android.widget.ImageView

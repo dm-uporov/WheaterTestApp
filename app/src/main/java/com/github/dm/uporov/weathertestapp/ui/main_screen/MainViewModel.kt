@@ -1,10 +1,10 @@
-package com.github.dm.uporov.weathertestapp.ui
+package com.github.dm.uporov.weathertestapp.ui.main_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.dm.uporov.weathertestapp.repository.ForecastRepository
-import com.github.dm.uporov.weathertestapp.ui.model.ForecastDetailedItem
-import com.github.dm.uporov.weathertestapp.ui.model.MainUiState
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastDetailedItem
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.MainUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

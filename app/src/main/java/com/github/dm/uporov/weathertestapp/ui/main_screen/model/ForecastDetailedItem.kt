@@ -1,4 +1,4 @@
-package com.github.dm.uporov.weathertestapp.ui.model
+package com.github.dm.uporov.weathertestapp.ui.main_screen.model
 
 data class ForecastDetailedItem(
     val city: String?,

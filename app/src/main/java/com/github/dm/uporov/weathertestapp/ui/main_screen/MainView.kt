@@ -1,4 +1,4 @@
-package com.github.dm.uporov.weathertestapp.ui
+package com.github.dm.uporov.weathertestapp.ui.main_screen
 
 import android.view.View
 import android.widget.ImageView
@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.github.dm.uporov.weathertestapp.R
-import com.github.dm.uporov.weathertestapp.ui.items.ForecastItemsAdapter
-import com.github.dm.uporov.weathertestapp.ui.items.OnForecastItemClickListener
-import com.github.dm.uporov.weathertestapp.ui.model.ForecastDetailedItem
-import com.github.dm.uporov.weathertestapp.ui.model.ForecastShortItem
+import com.github.dm.uporov.weathertestapp.ui.main_screen.items.ForecastItemsAdapter
+import com.github.dm.uporov.weathertestapp.ui.main_screen.items.OnForecastItemClickListener
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastDetailedItem
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastShortItem
 import com.github.dm.uporov.weathertestapp.utils.LeftBorderSnapHelper
 import com.github.dm.uporov.weathertestapp.utils.SnapPositionScrollListener
 import com.github.dm.uporov.weathertestapp.utils.bindText

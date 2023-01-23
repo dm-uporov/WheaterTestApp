@@ -18,7 +18,7 @@ data class ForecastElement(
     @SerializedName("visibility")
     val visibilityMeters: Int?,
     @SerializedName("pop")
-    val probabilityOffPrecipitation: Double?,
+    val probabilityOfPrecipitation: Double?,
     @SerializedName("rain")
     val rain: Rain?,
     @SerializedName("sys")

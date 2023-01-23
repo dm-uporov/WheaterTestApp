@@ -1,10 +1,10 @@
-package com.github.dm.uporov.weathertestapp.ui.items
+package com.github.dm.uporov.weathertestapp.ui.main_screen.items
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.github.dm.uporov.weathertestapp.R
-import com.github.dm.uporov.weathertestapp.ui.model.ForecastShortItem
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastShortItem
 import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Inject
 
