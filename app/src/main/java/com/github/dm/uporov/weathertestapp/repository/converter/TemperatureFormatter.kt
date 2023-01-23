@@ -5,17 +5,17 @@ import javax.inject.Inject
 import kotlin.math.roundToInt
 
 
-interface TemperatureConverter {
+interface TemperatureFormatter {
 
-    fun convert(temperature: Double?): String?
+    fun format(temperature: Double?): String?
 }
 
 private const val CELSIUS_TEMPERATURE_FORMAT = "%d°C"
 
 @ViewModelScoped
-class TemperatureConverterImpl @Inject constructor() : TemperatureConverter {
+class TemperatureFormatterImpl @Inject constructor() : TemperatureFormatter {
 
-    override fun convert(temperature: Double?): String? {
+    override fun format(temperature: Double?): String? {
         if (temperature == null) return null
 
         return String.format(CELSIUS_TEMPERATURE_FORMAT, temperature.roundToInt())

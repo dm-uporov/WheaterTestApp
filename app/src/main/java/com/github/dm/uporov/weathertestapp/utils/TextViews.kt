@@ -5,7 +5,7 @@ import android.widget.TextView
 
 fun TextView.bindText(value: String?) {
     if (value == null) {
-        visibility = View.INVISIBLE
+        visibility = View.GONE
     } else {
         visibility = View.VISIBLE
         text = value

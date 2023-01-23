@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">WeatherTestApp</string>
+
+    <string name="feels_like_format">Feels like %s</string>
+    <string name="pressure_format">Pressure: %s</string>
+    <string name="humidity_format">Humidity: %s</string>
+    <string name="visibility_format">Visibility: %s</string>
+    <string name="precipitation_format">Probability of precipitation: %s</string>
+    <string name="today">Today</string>
+    <string name="max_visibility">Maximum</string>
 </resources>

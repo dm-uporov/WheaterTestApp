@@ -2,10 +2,11 @@ package com.github.dm.uporov.weathertestapp.api.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.sql.Timestamp
 
 data class ForecastElement(
     @SerializedName("dt")
-    val date: Long,
+    val date: Timestamp,
     @SerializedName("main")
     val detailedInfo: DetailedInfo?,
     @SerializedName("weather")

@@ -13,13 +13,13 @@ data class DetailedInfo(
     @SerializedName("temp_max")
     val tempMax: Double?,
     @SerializedName("pressure")
-    val pressure: Int?,
+    val pressurePHa: Int?,
     @SerializedName("sea_level")
     val seaLevel: Int?,
     @SerializedName("grnd_level")
     val grndLevel: Int?,
     @SerializedName("humidity")
-    val humidity: Int?,
+    val humidityPercents: Int?,
     @SerializedName("temp_kf")
     val tempKf: Double?
 )

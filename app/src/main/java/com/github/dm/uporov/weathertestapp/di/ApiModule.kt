@@ -2,6 +2,10 @@ package com.github.dm.uporov.weathertestapp.di
 
 import com.github.dm.uporov.weathertestapp.BuildConfig
 import com.github.dm.uporov.weathertestapp.api.WeatherApi
+import com.github.dm.uporov.weathertestapp.api.adapter.TimestampAdapter
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.TypeAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +17,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.sql.Timestamp
 import javax.inject.Singleton
 
 @Module
@@ -24,11 +29,14 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideWeatherApi(client: OkHttpClient): WeatherApi {
+    fun provideWeatherApi(
+        client: OkHttpClient,
+        gson: Gson
+    ): WeatherApi {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(WeatherApi::class.java)
     }
@@ -69,5 +77,13 @@ object ApiModule {
 
             it.proceed(request)
         }
+    }
+
+    @Singleton
+    @Provides
+    fun provideGson(): Gson {
+        return GsonBuilder()
+            .registerTypeAdapter(Timestamp::class.java, TimestampAdapter())
+            .create()
     }
 }

@@ -24,10 +24,10 @@ class ForecastItemsAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: ForecastItemViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bindDate(item.dateTitle)
+        holder.bindDate(item.date)
+        holder.bindTime(item.time)
         holder.bindIcon(item.iconUrl)
-        holder.bindMaxTemperature(item.temperatureMax)
-        holder.bindMinTemperature(item.temperatureMin)
+        holder.bindTemperature(item.temperature)
         holder.setOnClickListener {
             onForecastItemClickListener?.onForecastItemClicked(
                 item = item,

@@ -11,19 +11,23 @@ import com.github.dm.uporov.weathertestapp.utils.bindText
 class ForecastItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val dateView: TextView
+    private val temperatureView: TextView
     private val iconView: ImageView
-    private val dayTemperatureView: TextView
-    private val nightTemperatureView: TextView
+    private val timeView: TextView
 
     init {
         dateView = itemView.findViewById(R.id.date)
+        temperatureView = itemView.findViewById(R.id.temperature)
         iconView = itemView.findViewById(R.id.icon)
-        dayTemperatureView = itemView.findViewById(R.id.day_temperature)
-        nightTemperatureView = itemView.findViewById(R.id.night_temperature)
+        timeView = itemView.findViewById(R.id.time)
     }
 
     fun bindDate(date: String) {
         dateView.text = date
+    }
+
+    fun bindTime(time: String) {
+        timeView.text = time
     }
 
     fun bindIcon(iconUrl: String?) {
@@ -32,12 +36,8 @@ class ForecastItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         }
     }
 
-    fun bindMaxTemperature(dayTemperature: String?) {
-        dayTemperatureView.bindText(dayTemperature)
-    }
-
-    fun bindMinTemperature(nightTemperature: String?) {
-        nightTemperatureView.bindText(nightTemperature)
+    fun bindTemperature(temperature: String?) {
+        temperatureView.bindText(temperature)
     }
 
     fun setOnClickListener(onClick: (() -> Unit)?) {

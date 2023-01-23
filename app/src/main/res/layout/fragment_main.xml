@@ -6,71 +6,244 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--
-            This RecyclerView has pretty large end padding on purpose.
-            This works fine in a pair with SnapHelper, it doesn't allow user to scroll over elements.
-            From another side, this way we can bring focus to the very last element
-        -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/forecasts_recycler"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/forecast_recycler_height"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="1000dp"
-            app:layoutManager=".utils.ScaleLeftElementLayoutManager"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/forecasts_recycler"
-            tools:text="Tbilisi" />
+            <!--
+                This RecyclerView has pretty large end padding on purpose.
+                This works fine in a pair with SnapHelper, it doesn't allow user to scroll over elements.
+                From another side, this way we can bring focus to the very last element
+            -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/forecasts_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/forecast_recycler_height"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="1000dp"
+                app:layoutManager=".utils.ScaleLeftElementLayoutManager"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/location_icon"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginStart="4dp"
-            android:src="@drawable/ic_location"
-            app:layout_constraintBottom_toBottomOf="@id/location"
-            app:layout_constraintStart_toEndOf="@id/location"
-            app:layout_constraintTop_toTopOf="@id/location"
-            app:tint="@color/location_icon_color"
-            tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/location_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_location"
+                app:layout_constraintBottom_toBottomOf="@id/location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/location"
+                app:tint="@color/details_icon_color"
+                tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/temperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="60sp"
-            app:layout_constraintStart_toStartOf="@id/location"
-            app:layout_constraintTop_toBottomOf="@+id/location"
-            tools:text="+7°C" />
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toEndOf="@id/location_icon"
+                app:layout_constraintTop_toBottomOf="@+id/forecasts_recycler"
+                tools:text="Tbilisi" />
 
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="TODO" />
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/location_barrier"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="location_icon,location" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/time_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_time"
+                app:layout_constraintBottom_toBottomOf="@+id/date_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/date_time"
+                app:tint="@color/details_icon_color"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                app:layout_constraintStart_toEndOf="@+id/time_icon"
+                app:layout_constraintTop_toBottomOf="@id/location_barrier"
+                tools:text="27 February, 16:00" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/date_barrier"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="time_icon,date_time" />
+
+            <TextView
+                android:id="@+id/temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/main_temperature_color"
+                android:textSize="60sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date_barrier"
+                tools:text="+7°C" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/temperature"
+                app:layout_constraintStart_toEndOf="@id/temperature"
+                app:layout_constraintTop_toTopOf="@id/temperature"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_placeholder" />
+
+            <TextView
+                android:id="@+id/feels_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/temperature"
+                app:layout_constraintTop_toBottomOf="@id/temperature"
+                tools:text="Feels like +5°C" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/temperature_barrier"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="temperature,icon,feels_like" />
+
+            <ImageView
+                android:id="@+id/pressure_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_pressure"
+                app:layout_constraintBottom_toBottomOf="@id/pressure"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/pressure"
+                app:tint="@color/details_icon_color"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/pressure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toEndOf="@id/pressure_icon"
+                app:layout_constraintTop_toBottomOf="@+id/temperature_barrier"
+                tools:text="Pressure: 1015hPa" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/pressure_barrier"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="pressure_icon,pressure" />
+
+            <ImageView
+                android:id="@+id/humidity_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_humidity"
+                app:layout_constraintBottom_toBottomOf="@id/humidity"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/humidity"
+                app:tint="@color/details_icon_color"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toEndOf="@id/humidity_icon"
+                app:layout_constraintTop_toBottomOf="@+id/pressure_barrier"
+                tools:text="Humidity: 80%" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/humidity_barrier"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="humidity_icon,humidity" />
+
+            <ImageView
+                android:id="@+id/visibility_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_visibility"
+                app:layout_constraintBottom_toBottomOf="@id/visibility"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/visibility"
+                app:tint="@color/details_icon_color"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/visibility"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toEndOf="@id/visibility_icon"
+                app:layout_constraintTop_toBottomOf="@+id/humidity_barrier"
+                tools:text="Visibility: 10m" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/visibility_barrier"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="visibility_icon,visibility" />
+
+            <ImageView
+                android:id="@+id/precipitation_icon"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_precipitation"
+                app:layout_constraintBottom_toBottomOf="@id/precipitation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/precipitation"
+                app:tint="@color/details_icon_color"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/precipitation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toEndOf="@id/precipitation_icon"
+                app:layout_constraintTop_toBottomOf="@+id/visibility_barrier"
+                tools:text="Probability of precipitation: 30%" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/precipitation_barrier"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="precipitation_icon,precipitation" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <include layout="@layout/loading_screen_main" />
 </FrameLayout>

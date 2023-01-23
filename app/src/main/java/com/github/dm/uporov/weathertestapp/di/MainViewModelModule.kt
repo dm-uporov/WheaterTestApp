@@ -14,7 +14,7 @@ interface MainViewModelModule {
 
     @ViewModelScoped
     @Binds
-    fun bindWeatherRepository(repository: ForecastRepositoryImpl) : ForecastRepository
+    fun bindWeatherRepository(repository: ForecastRepositoryImpl): ForecastRepository
 
     @ViewModelScoped
     @Binds
@@ -22,14 +22,30 @@ interface MainViewModelModule {
 
     @ViewModelScoped
     @Binds
-    fun bindDateConverter(converter: DateConverterImpl): DateConverter
+    fun bindDateConverter(formatter: DateFormatterImpl): DateFormatter
 
     @ViewModelScoped
     @Binds
-    fun bindOpenWeatherIconUrlHelper(helper: OpenWeatherIconUrlHelperImpl): OpenWeatherIconUrlHelper
+    fun bindOpenWeatherIconUrlHelper(formatter: OpenWeatherIconUrlFormatterImpl): OpenWeatherIconUrlFormatter
 
     @ViewModelScoped
     @Binds
-    fun bindTemperatureConverter(converter: TemperatureConverterImpl):  TemperatureConverter
+    fun bindTemperatureConverter(formatter: TemperatureFormatterImpl): TemperatureFormatter
+
+    @ViewModelScoped
+    @Binds
+    fun bindPressureFormatter(formatter: PressureFormatterImpl): PressureFormatter
+
+    @ViewModelScoped
+    @Binds
+    fun bindHumidityFormatter(formatter: HumidityFormatterImpl): HumidityFormatter
+
+    @ViewModelScoped
+    @Binds
+    fun bindVisibilityFormatter(formatter: VisibilityFormatterImpl): VisibilityFormatter
+
+    @ViewModelScoped
+    @Binds
+    fun bindProbabilityOfPrecipitationFormatter(formatter: ProbabilityOfPrecipitationFormatterImpl): ProbabilityOfPrecipitationFormatter
 
 }

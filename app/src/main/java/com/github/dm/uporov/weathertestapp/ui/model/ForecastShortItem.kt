@@ -2,8 +2,8 @@ package com.github.dm.uporov.weathertestapp.ui.model
 
 data class ForecastShortItem(
     val id: Long,
-    val dateTitle: String,
+    val date: String,
+    val time: String,
     val iconUrl: String?,
-    val temperatureMax: String?,
-    val temperatureMin: String?,
+    val temperature: String?,
 )

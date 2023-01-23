@@ -29,7 +29,7 @@
             android:layout_marginBottom="6dp"/>
 
         <View
-            android:id="@+id/day_temperature"
+            android:id="@+id/temperature"
             android:layout_width="30dp"
             android:layout_height="10dp"
             android:background="@color/shimmer_background"
