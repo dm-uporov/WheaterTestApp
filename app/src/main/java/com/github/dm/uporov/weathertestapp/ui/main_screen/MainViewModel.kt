@@ -3,6 +3,7 @@ package com.github.dm.uporov.weathertestapp.ui.main_screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.dm.uporov.weathertestapp.repository.ForecastRepository
+import com.github.dm.uporov.weathertestapp.repository.LoadingState
 import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastDetailedItem
 import com.github.dm.uporov.weathertestapp.ui.main_screen.model.MainUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,17 +27,34 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            forecastRepository.forecastList.collect { uiModel ->
+            forecastRepository.forecast.collect { loadingState ->
                 _uiState.update {
-                    detailedItems = uiModel.detailedItems
-                    it.copy(
-                        isLoading = false,
-                        forecastShortItems = uiModel.shortItems,
-                        detailedItem = uiModel.detailedItems[selectedItem]
-                    )
+                    when (loadingState) {
+                        is LoadingState.Loading -> it.copy(
+                            isLoading = true,
+                            error = false
+                        )
+                        is LoadingState.Loaded -> {
+                            detailedItems = loadingState.data.detailedItems
+                            if (selectedItem >= detailedItems.count()) {
+                                selectedItem = 0
+                            }
+                            it.copy(
+                                isLoading = false,
+                                error = false,
+                                forecastShortItems = loadingState.data.shortItems,
+                                detailedItem = detailedItems[selectedItem]
+                            )
+                        }
+                        is LoadingState.Error -> it.copy(
+                            isLoading = false,
+                            error = true
+                        )
+                    }
                 }
             }
         }
+        forecastRepository.refresh(viewModelScope)
     }
 
     fun onForecastItemClicked(position: Int) {

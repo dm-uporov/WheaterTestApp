@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -23,8 +25,8 @@ import com.github.dm.uporov.weathertestapp.ui.permission_screen.model.Permission
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-interface OnPermissionGrantedCallback {
-    fun onPermissionGranted()
+interface OnImportantPermissionGrantedCallback {
+    fun onAllImportantPermissionsGranted()
 }
 
 @AndroidEntryPoint
@@ -36,27 +38,29 @@ class PermissionFragment : Fragment() {
 
     private lateinit var viewModel: PermissionIsNotGrantedViewModel
 
-    private lateinit var onPermissionGrantedCallback: OnPermissionGrantedCallback
+    private lateinit var onImportantPermissionGrantedCallback: OnImportantPermissionGrantedCallback
     private lateinit var description: TextView
     private lateinit var grantButton: Button
     private lateinit var openSettingsButton: Button
 
     private val locationPermissionRequest = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { permissionGranted ->
-        if (permissionGranted) {
-            onPermissionGrantedCallback.onPermissionGranted()
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissionsGranted ->
+        if (permissionsGranted[Manifest.permission.ACCESS_COARSE_LOCATION] == true) {
+            onImportantPermissionGrantedCallback.onAllImportantPermissionsGranted()
         } else {
-            viewModel.onPermissionDenied(shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION))
+            viewModel.onLocationPermissionDenied(
+                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)
+            )
         }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnPermissionGrantedCallback) {
-            onPermissionGrantedCallback = context
+        if (context is OnImportantPermissionGrantedCallback) {
+            onImportantPermissionGrantedCallback = context
         } else {
-            throw RuntimeException("${context.javaClass} should implement ${OnPermissionGrantedCallback::class.java}")
+            throw RuntimeException("${context.javaClass} should implement ${OnImportantPermissionGrantedCallback::class.java}")
         }
     }
 
@@ -109,7 +113,15 @@ class PermissionFragment : Fragment() {
     }
 
     private fun requestPermission() {
-        locationPermissionRequest.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
+        val permissions = if (Build.VERSION.SDK_INT >= TIRAMISU) {
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.POST_NOTIFICATIONS,
+            )
+        } else {
+            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION)
+        }
+        locationPermissionRequest.launch(permissions)
     }
 
     private fun openSettingsApp() {

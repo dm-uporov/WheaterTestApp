@@ -5,7 +5,6 @@ import com.github.dm.uporov.weathertestapp.api.WeatherApi
 import com.github.dm.uporov.weathertestapp.api.adapter.TimestampAdapter
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.TypeAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +16,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.URL
 import java.sql.Timestamp
 import javax.inject.Singleton
 
@@ -24,7 +24,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ApiModule {
 
-    private const val BASE_URL = "https://api.openweathermap.org/"
+    private const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
+    private const val API_BASE_PATH = "/data/2.5/"
     private const val API_KEY_QUERY_KEY = "appid"
 
     @Singleton
@@ -34,7 +35,7 @@ object ApiModule {
         gson: Gson
     ): WeatherApi {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(URL(BASE_URL))
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
@@ -63,8 +64,8 @@ object ApiModule {
     @Provides
     @IntoSet
     fun provideApiKeyInterceptor(): Interceptor {
-        return Interceptor {
-            val originalRequest = it.request()
+        return Interceptor { chain ->
+            val originalRequest = chain.request()
             val originalUrl: HttpUrl = originalRequest.url
 
             val url = originalUrl.newBuilder()
@@ -75,7 +76,7 @@ object ApiModule {
                 .url(url)
                 .build()
 
-            it.proceed(request)
+            chain.proceed(request)
         }
     }
 

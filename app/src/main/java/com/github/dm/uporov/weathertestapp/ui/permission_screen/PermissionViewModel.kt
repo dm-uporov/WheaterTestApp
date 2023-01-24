@@ -9,6 +9,7 @@ import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastDetailed
 import com.github.dm.uporov.weathertestapp.ui.main_screen.model.MainUiState
 import com.github.dm.uporov.weathertestapp.ui.permission_screen.model.PermissionNotGrantedUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,9 +30,10 @@ class PermissionIsNotGrantedViewModel @Inject constructor(
 
     fun onStart(shouldShowRequestPermissionRationale: Boolean) {
         updateState(shouldShowRequestPermissionRationale)
+        viewModelScope.launch {  }
     }
 
-    fun onPermissionDenied(shouldShowRequestPermissionRationale: Boolean) {
+    fun onLocationPermissionDenied(shouldShowRequestPermissionRationale: Boolean) {
         // Did user deny permission for the first time?
         if ((permissionDenialCountRepository.permissionDenialCount == 0 && shouldShowRequestPermissionRationale) ||
             // Or did user deny permission for the second time?

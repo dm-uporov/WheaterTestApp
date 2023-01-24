@@ -1,0 +1,5 @@
+<resources>
+    <string name="permission_required_text">In order to use the application, you must grant the coarse location permission.\n\nAlso, if you want to see current weather in your notifications, you need to allow the application to send notifications.</string>
+    <string name="grant_permission">Grant permissions</string>
+    <string name="permission_required_through_settings_text">In order to use the application, you must grant the coarse location permission.\n\nAlso, if you want to see current weather in your notifications, you need to allow the application to send notifications.\n\nYou have to grant them manually through the settings application.</string>
+</resources>

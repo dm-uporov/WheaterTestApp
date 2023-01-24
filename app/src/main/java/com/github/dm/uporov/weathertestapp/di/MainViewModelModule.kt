@@ -30,10 +30,6 @@ interface MainViewModelModule {
 
     @ViewModelScoped
     @Binds
-    fun bindTemperatureConverter(formatter: TemperatureFormatterImpl): TemperatureFormatter
-
-    @ViewModelScoped
-    @Binds
     fun bindPressureFormatter(formatter: PressureFormatterImpl): PressureFormatter
 
     @ViewModelScoped
