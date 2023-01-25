@@ -3,23 +3,28 @@ package com.github.dm.uporov.weathertestapp.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.work.*
-import com.github.dm.uporov.weathertestapp.repository.CurrentWeatherRepository
-import com.github.dm.uporov.weathertestapp.repository.CurrentWeatherRepositoryImpl
-import com.github.dm.uporov.weathertestapp.repository.GrantedPermissionsRepository
-import com.github.dm.uporov.weathertestapp.repository.GrantedPermissionsRepositoryImpl
-import com.github.dm.uporov.weathertestapp.repository.converter.TemperatureFormatter
-import com.github.dm.uporov.weathertestapp.repository.converter.TemperatureFormatterImpl
+import com.github.dm.uporov.weathertestapp.domain.converter.ErrorFormatter
+import com.github.dm.uporov.weathertestapp.domain.converter.ErrorFormatterImpl
+import com.github.dm.uporov.weathertestapp.domain.converter.TemperatureFormatter
+import com.github.dm.uporov.weathertestapp.domain.converter.TemperatureFormatterImpl
+import com.github.dm.uporov.weathertestapp.domain.repository.*
 import com.github.dm.uporov.weathertestapp.ui.notification.CurrentWeatherNotificationManager
 import com.github.dm.uporov.weathertestapp.ui.notification.CurrentWeatherNotificationManagerImpl
 import com.github.dm.uporov.weathertestapp.ui.notification.RefreshWeatherForecastWorker
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
 import java.util.concurrent.TimeUnit
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module(includes = [ApplicationModule.Declarations::class])
@@ -55,6 +60,26 @@ object ApplicationModule {
             .build()
     }
 
+    @Singleton
+    @Provides
+    fun provideLocationService(@ApplicationContext context: Context): FusedLocationProviderClient {
+        return LocationServices.getFusedLocationProviderClient(context)
+    }
+
+    @Singleton
+    @Provides
+    @ApplicationCoroutineScope
+    fun provideApplicationCoroutineScope(): CoroutineScope {
+        return MainScope()
+    }
+
+    @Singleton
+    @Provides
+    @IoCoroutineDispatcher
+    fun provideIoCoroutineDispatcher(): CoroutineDispatcher {
+        return Dispatchers.IO
+    }
+
     @Module
     @InstallIn(SingletonComponent::class)
     interface Declarations {
@@ -74,5 +99,19 @@ object ApplicationModule {
         @Singleton
         @Binds
         fun bindTemperatureConverter(formatter: TemperatureFormatterImpl): TemperatureFormatter
+
+        @Singleton
+        @Binds
+        fun bindLocationRepository(repository: LocationRepositoryImpl): LocationRepository
+
+        @Singleton
+        @Binds
+        fun bindErrorFormatter(errorFormatter: ErrorFormatterImpl): ErrorFormatter
     }
 }
+
+@Qualifier
+annotation class ApplicationCoroutineScope
+
+@Qualifier
+annotation class IoCoroutineDispatcher

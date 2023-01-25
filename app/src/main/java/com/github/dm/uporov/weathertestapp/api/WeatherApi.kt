@@ -10,13 +10,13 @@ interface WeatherApi {
 
     @GET("/data/2.5/forecast?units=metric")
     suspend fun getForecast(
-        @Query("lat") latitude: Float,
-        @Query("lon") longitude: Float,
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
     ) : Response<ForecastResponse>
 
     @GET("/data/2.5/weather?units=metric")
     suspend fun getCurrentWeather(
-        @Query("lat") latitude: Float,
-        @Query("lon") longitude: Float,
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
     ) : Response<CurrentWeatherResponse>
 }

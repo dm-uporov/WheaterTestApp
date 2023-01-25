@@ -1,7 +1,8 @@
 package com.github.dm.uporov.weathertestapp.di
 
-import com.github.dm.uporov.weathertestapp.repository.*
-import com.github.dm.uporov.weathertestapp.repository.converter.*
+import com.github.dm.uporov.weathertestapp.domain.converter.*
+import com.github.dm.uporov.weathertestapp.domain.repository.ForecastRepository
+import com.github.dm.uporov.weathertestapp.domain.repository.ForecastRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

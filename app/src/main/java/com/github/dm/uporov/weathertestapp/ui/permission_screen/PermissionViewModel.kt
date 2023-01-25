@@ -3,13 +3,9 @@ package com.github.dm.uporov.weathertestapp.ui.permission_screen
 import android.os.Build
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.dm.uporov.weathertestapp.R
-import com.github.dm.uporov.weathertestapp.repository.PermissionDenialCountRepository
-import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastDetailedItem
-import com.github.dm.uporov.weathertestapp.ui.main_screen.model.MainUiState
+import com.github.dm.uporov.weathertestapp.domain.repository.PermissionDenialCountRepository
 import com.github.dm.uporov.weathertestapp.ui.permission_screen.model.PermissionNotGrantedUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

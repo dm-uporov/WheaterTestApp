@@ -14,4 +14,10 @@
     <string name="permission_required_through_settings_text">In order to use the application, you must grant the coarse location permission.\n\nYou have to change it manually through the settings application.</string>
     <string name="open_settings">Open settings</string>
     <string name="notification_channel_name">Weather Forecast</string>
+    <string name="retry">Retry</string>
+
+    <string name="error_location_permission_denied">Location permission was revoked. In order to use the application, you must grant the location permission manually through the settings application.</string>
+    <string name="error_server">Server error happened. Check your network connection and try again or return a bit later.</string>
+    <string name="error_location_fetching">Error happened while fetching your current location. Check your location settings and try again.</string>
+    <string name="error_other">Unexpected error happened. You can try it again or return a bit later.</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.github.dm.uporov.weathertestapp.di
 
-import com.github.dm.uporov.weathertestapp.repository.*
+import com.github.dm.uporov.weathertestapp.domain.repository.PermissionDenialCountRepository
+import com.github.dm.uporov.weathertestapp.domain.repository.PermissionDenialCountRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

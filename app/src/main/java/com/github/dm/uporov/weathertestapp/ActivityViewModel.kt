@@ -2,7 +2,7 @@ package com.github.dm.uporov.weathertestapp
 
 import androidx.lifecycle.ViewModel
 import androidx.work.*
-import com.github.dm.uporov.weathertestapp.repository.GrantedPermissionsRepository
+import com.github.dm.uporov.weathertestapp.domain.repository.GrantedPermissionsRepository
 import com.github.dm.uporov.weathertestapp.ui.notification.CurrentWeatherNotificationManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

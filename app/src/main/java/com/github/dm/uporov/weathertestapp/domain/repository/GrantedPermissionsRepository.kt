@@ -1,4 +1,4 @@
-package com.github.dm.uporov.weathertestapp.repository
+package com.github.dm.uporov.weathertestapp.domain.repository
 
 import android.Manifest
 import android.content.Context
@@ -36,6 +36,4 @@ class GrantedPermissionsRepositoryImpl @Inject constructor(
                 true
             }
         }
-
-
 }

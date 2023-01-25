@@ -1,4 +1,4 @@
-package com.github.dm.uporov.weathertestapp.repository.converter
+package com.github.dm.uporov.weathertestapp.domain.converter
 
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject

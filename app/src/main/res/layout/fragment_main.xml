@@ -246,4 +246,6 @@
     </ScrollView>
 
     <include layout="@layout/loading_screen_main" />
+
+    <include layout="@layout/error_screen_main" />
 </FrameLayout>

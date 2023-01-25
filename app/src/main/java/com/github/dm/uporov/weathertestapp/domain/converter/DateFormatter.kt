@@ -1,4 +1,4 @@
-package com.github.dm.uporov.weathertestapp.repository.converter
+package com.github.dm.uporov.weathertestapp.domain.converter
 
 import android.content.Context
 import com.github.dm.uporov.weathertestapp.R

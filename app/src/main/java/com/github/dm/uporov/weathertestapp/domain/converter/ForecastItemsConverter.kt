@@ -1,4 +1,4 @@
-package com.github.dm.uporov.weathertestapp.repository.converter
+package com.github.dm.uporov.weathertestapp.domain.converter
 
 import com.github.dm.uporov.weathertestapp.api.model.ForecastResponse
 import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastDetailedItem

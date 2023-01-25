@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.github.dm.uporov.weathertestapp.repository.GrantedPermissionsRepository
+import com.github.dm.uporov.weathertestapp.domain.repository.GrantedPermissionsRepository
 import com.github.dm.uporov.weathertestapp.ui.main_screen.MainFragment
 import com.github.dm.uporov.weathertestapp.ui.permission_screen.OnImportantPermissionGrantedCallback
 import com.github.dm.uporov.weathertestapp.ui.permission_screen.PermissionFragment

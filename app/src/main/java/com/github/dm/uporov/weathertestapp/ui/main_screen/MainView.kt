@@ -1,6 +1,7 @@
 package com.github.dm.uporov.weathertestapp.ui.main_screen
 
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
@@ -20,22 +21,27 @@ interface MainView {
 
     fun showLoading()
 
-    fun hideLoading()
+    fun showContent(list: List<ForecastShortItem>, details: ForecastDetailedItem?)
 
-    fun bindDetails(details: ForecastDetailedItem?)
+    fun showError(message: String)
 
     fun onDestroy()
 }
 
 class MainViewImpl(
     view: View,
-    val adapter: ForecastItemsAdapter,
-    val snapHelper: LeftBorderSnapHelper,
-    val snapPositionScrollListener: SnapPositionScrollListener,
+    snapPositionScrollListener: SnapPositionScrollListener,
+    private val adapter: ForecastItemsAdapter,
+    private val snapHelper: LeftBorderSnapHelper,
+    onRetryClickListener: () -> Unit,
 ) : MainView, OnForecastItemClickListener {
 
     private val contentView: View
     private val loadingView: ShimmerFrameLayout
+
+    private val errorView: View
+    private val errorMessage: TextView
+    private val retryButton: Button
 
     private val recyclerView: RecyclerView
     private val location: TextView
@@ -63,6 +69,12 @@ class MainViewImpl(
     init {
         contentView = view.findViewById(R.id.content)
         loadingView = view.findViewById(R.id.shimmer_view_container)
+
+        errorView = view.findViewById(R.id.error_container)
+        errorMessage = view.findViewById(R.id.message)
+        retryButton = view.findViewById<Button>(R.id.retry).apply {
+            setOnClickListener { onRetryClickListener.invoke() }
+        }
 
         recyclerView = view.findViewById(R.id.forecasts_recycler)
         recyclerView.adapter = adapter
@@ -97,15 +109,27 @@ class MainViewImpl(
         contentView.isVisible = false
         loadingView.isVisible = true
         loadingView.startShimmer()
+        errorView.isVisible = false
     }
 
-    override fun hideLoading() {
+    override fun showContent(list: List<ForecastShortItem>, details: ForecastDetailedItem?) {
         contentView.isVisible = true
+        loadingView.isVisible = false
+        loadingView.stopShimmer()
+        errorView.isVisible = false
+
+        adapter.submitList(list)
+        renderDetails(details)
+    }
+
+    override fun showError(message: String) {
+        errorView.isVisible = true
+        contentView.isVisible = false
         loadingView.isVisible = false
         loadingView.stopShimmer()
     }
 
-    override fun bindDetails(details: ForecastDetailedItem?) {
+    private fun renderDetails(details: ForecastDetailedItem?) {
         location.bindTextWithIcon(details?.city, locationIcon)
         date.bindTextWithIcon(details?.date, dateIcon)
 
@@ -139,6 +163,7 @@ class MainViewImpl(
     override fun onDestroy() {
         adapter.onForecastItemClickListener = null
         snapHelper.attachToRecyclerView(null)
+        retryButton.setOnClickListener(null)
     }
 
     override fun onForecastItemClicked(item: ForecastShortItem, position: Int, clickedView: View) {

@@ -1,4 +1,4 @@
-package com.github.dm.uporov.weathertestapp.repository
+package com.github.dm.uporov.weathertestapp.domain.repository
 
 import android.content.SharedPreferences
 import dagger.hilt.android.scopes.ViewModelScoped

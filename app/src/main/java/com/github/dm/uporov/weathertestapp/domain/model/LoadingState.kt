@@ -1,4 +1,4 @@
-package com.github.dm.uporov.weathertestapp.repository
+package com.github.dm.uporov.weathertestapp.domain.model
 
 sealed class LoadingState<T : Any?> private constructor() {
 
@@ -6,5 +6,5 @@ sealed class LoadingState<T : Any?> private constructor() {
 
     data class Loaded<T>(val data: T) : LoadingState<T>()
 
-    data class Error<T>(val message: String) : LoadingState<T>()
+    data class Error<T>(val error: Throwable) : LoadingState<T>()
 }

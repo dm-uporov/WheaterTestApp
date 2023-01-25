@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.github.dm.uporov.weathertestapp.repository.CurrentWeatherRepository
-import com.github.dm.uporov.weathertestapp.repository.converter.TemperatureFormatter
+import com.github.dm.uporov.weathertestapp.domain.repository.CurrentWeatherRepository
+import com.github.dm.uporov.weathertestapp.domain.converter.TemperatureFormatter
+import com.github.dm.uporov.weathertestapp.utils.capitalize
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
@@ -29,7 +30,7 @@ class RefreshWeatherForecastWorker @AssistedInject constructor(
             String.format(NOTIFICATION_FULL_TITLE_FORMAT, it, temperature)
         } ?: String.format(NOTIFICATION_SHORT_TITLE_FORMAT, temperature)
 
-        val text = weather.weather.first().description ?: ""
+        val text = weather.weather.first().description?.capitalize() ?: ""
 
         notificationManager.showNotification(title, text)
 

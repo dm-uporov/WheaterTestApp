@@ -1,12 +1,10 @@
-package com.github.dm.uporov.weathertestapp.repository.converter
+package com.github.dm.uporov.weathertestapp.domain.converter
 
 import android.content.Context
 import com.github.dm.uporov.weathertestapp.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
-import kotlin.math.max
-import kotlin.math.roundToInt
 
 
 interface VisibilityFormatter {

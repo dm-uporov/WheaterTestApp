@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.github.dm.uporov.weathertestapp.R
 import com.github.dm.uporov.weathertestapp.ui.main_screen.items.ForecastItemsAdapter
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.MainUiState
 import com.github.dm.uporov.weathertestapp.utils.LeftBorderSnapHelper
 import com.github.dm.uporov.weathertestapp.utils.SnapPositionScrollListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,24 +53,24 @@ class MainFragment : Fragment() {
 
         mainView = MainViewImpl(
             view = view,
+            snapPositionScrollListener = snapPositionScrollListener,
             adapter = adapter,
             snapHelper = snapHelper,
-            snapPositionScrollListener = snapPositionScrollListener,
+            onRetryClickListener = viewModel::onRetryClicked
         )
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect {
-                    if (it.isLoading) {
-                        mainView.showLoading()
-                    } else {
-                        mainView.hideLoading()
-
-                        adapter.submitList(it.forecastShortItems)
-                        mainView.bindDetails(it.detailedItem)
-                    }
-                }
+                viewModel.uiState.collect(::renderNewState)
             }
+        }
+    }
+
+    private fun renderNewState(state: MainUiState) {
+        when {
+            state.errorMessage != null -> mainView.showError(state.errorMessage)
+            state.isLoading -> mainView.showLoading()
+            else -> mainView.showContent(state.forecastShortItems, state.detailedItem)
         }
     }
 
