@@ -4,31 +4,31 @@ import com.google.gson.annotations.SerializedName
 
 data class CurrentWeatherResponse(
     @SerializedName("coord")
-    val coord: Coord?,
+    val coord: Coord? = null,
     @SerializedName("weather")
     val weather: List<WeatherDescription>,
     @SerializedName("base")
-    val base: String?,
+    val base: String? = null,
     @SerializedName("main")
     val detailedInfo: DetailedInfo,
     @SerializedName("visibility")
-    val visibility: Int?,
+    val visibility: Int? = null,
     @SerializedName("wind")
-    val wind: WindInfo?,
+    val wind: WindInfo? = null,
     @SerializedName("rain")
-    val rain: Rain?,
+    val rain: Rain? = null,
     @SerializedName("clouds")
-    val clouds: Clouds?,
+    val clouds: Clouds? = null,
     @SerializedName("dt")
-    val dt: Int?,
+    val dt: Int? = null,
     @SerializedName("sys")
-    val sys: Sys?,
+    val sys: Sys? = null,
     @SerializedName("timezone")
-    val timezone: Int?,
+    val timezone: Int? = null,
     @SerializedName("id")
-    val id: Int?,
+    val id: Int? = null,
     @SerializedName("name")
-    val cityName: String?,
+    val cityName: String? = null,
     @SerializedName("cod")
-    val cod: Int?
+    val cod: Int? = null
 )

@@ -127,6 +127,8 @@ class MainViewImpl(
         contentView.isVisible = false
         loadingView.isVisible = false
         loadingView.stopShimmer()
+
+        errorMessage.bindText(message)
     }
 
     private fun renderDetails(details: ForecastDetailedItem?) {

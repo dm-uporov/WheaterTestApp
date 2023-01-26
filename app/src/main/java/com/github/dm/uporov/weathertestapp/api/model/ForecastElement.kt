@@ -8,21 +8,21 @@ data class ForecastElement(
     @SerializedName("dt")
     val date: Timestamp,
     @SerializedName("main")
-    val detailedInfo: DetailedInfo?,
+    val detailedInfo: DetailedInfo? = null,
     @SerializedName("weather")
-    val weatherDescriptions: List<WeatherDescription>?,
+    val weatherDescriptions: List<WeatherDescription>? = null,
     @SerializedName("clouds")
-    val clouds: Clouds?,
+    val clouds: Clouds? = null,
     @SerializedName("wind")
-    val wind: WindInfo?,
+    val wind: WindInfo? = null,
     @SerializedName("visibility")
-    val visibilityMeters: Int?,
+    val visibilityMeters: Int? = null,
     @SerializedName("pop")
-    val probabilityOfPrecipitation: Double?,
+    val probabilityOfPrecipitation: Double? = null,
     @SerializedName("rain")
-    val rain: Rain?,
+    val rain: Rain? = null,
     @SerializedName("sys")
-    val sys: Sys?,
+    val sys: Sys? = null,
     @SerializedName("dt_txt")
-    val dtTxt: String?
+    val dtTxt: String? = null
 )

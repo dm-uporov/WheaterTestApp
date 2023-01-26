@@ -19,8 +19,8 @@ interface ForecastRepository {
 @ViewModelScoped
 class ForecastRepositoryImpl @Inject constructor(
     private val forecastDataSource: ForecastRemoteDataSource,
-    private val converter: ForecastItemsConverter,
     private val locationRepository: LocationRepository,
+    private val converter: ForecastItemsConverter,
 ) : ForecastRepository {
 
     override suspend fun getForecast(): ForecastUiModel {
@@ -30,7 +30,7 @@ class ForecastRepositoryImpl @Inject constructor(
             throw e
         } catch (e: Throwable) {
             locationRepository.getLastLocation()
-        } ?: throw LocationFetchingException()
+        }
 
         val forecastResponse = forecastDataSource.getForecast(location.latitude, location.longitude)
             ?: throw ServerErrorException()

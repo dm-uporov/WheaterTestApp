@@ -2,6 +2,7 @@ package com.github.dm.uporov.weathertestapp.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Resources
 import androidx.work.*
 import com.github.dm.uporov.weathertestapp.domain.converter.ErrorFormatter
 import com.github.dm.uporov.weathertestapp.domain.converter.ErrorFormatterImpl
@@ -23,6 +24,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -32,6 +34,12 @@ import javax.inject.Singleton
 object ApplicationModule {
 
     private const val SHARED_PREFERENCES_NAME = "weather_app_preferences"
+
+    @Singleton
+    @Provides
+    fun provideResources(@ApplicationContext context: Context): Resources {
+        return context.resources
+    }
 
     @Singleton
     @Provides

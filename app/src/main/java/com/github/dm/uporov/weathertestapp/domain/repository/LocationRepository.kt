@@ -15,10 +15,10 @@ import kotlin.coroutines.suspendCoroutine
 interface LocationRepository {
 
     @Throws(LocationPermissionDeniedException::class, LocationFetchingException::class)
-    suspend fun getLastLocation(): Location?
+    suspend fun getLastLocation(): Location
 
     @Throws(LocationPermissionDeniedException::class, LocationFetchingException::class)
-    suspend fun getCurrentLocation(): Location?
+    suspend fun getCurrentLocation(): Location
 }
 
 @Singleton

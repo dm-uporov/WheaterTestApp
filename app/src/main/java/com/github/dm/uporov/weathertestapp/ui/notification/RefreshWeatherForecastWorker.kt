@@ -23,7 +23,12 @@ class RefreshWeatherForecastWorker @AssistedInject constructor(
 ) : CoroutineWorker(context, workerParameters) {
 
     override suspend fun doWork(): Result {
-        val weather = repository.getCurrentWeather() ?: return Result.failure()
+        val weather = try {
+            repository.getCurrentWeather()
+        } catch (e: Throwable) {
+            return Result.failure()
+        } ?: return Result.failure()
+
         val temperature = temperatureFormatter.format(weather.detailedInfo.temp)
 
         val title = weather.cityName?.let {

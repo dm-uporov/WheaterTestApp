@@ -1,8 +1,7 @@
 package com.github.dm.uporov.weathertestapp.domain.converter
 
-import android.content.Context
+import android.content.res.Resources
 import com.github.dm.uporov.weathertestapp.R
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,7 +22,7 @@ private const val DETAILED_PATTERN = "EEEE, d MMMM, HH:mm"
 
 @ViewModelScoped
 class DateFormatterImpl @Inject constructor(
-    @ApplicationContext context: Context
+    resources: Resources,
 ) : DateFormatter {
 
     private val shortDateFormat = SimpleDateFormat(SHORT_PATTERN, Locale.ENGLISH)
@@ -33,11 +32,7 @@ class DateFormatterImpl @Inject constructor(
     private val calendar = Calendar.getInstance(TimeZone.getDefault())
     private val todayDayOfYear = calendar.get(Calendar.DAY_OF_YEAR)
 
-    private val todayText: String
-
-    init {
-        todayText = context.resources.getString(R.string.today)
-    }
+    private val todayText: String = resources.getString(R.string.today)
 
     override fun formatShortDate(date: Date): String {
         calendar.time = date

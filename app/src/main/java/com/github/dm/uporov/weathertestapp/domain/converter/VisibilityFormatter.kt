@@ -1,8 +1,7 @@
 package com.github.dm.uporov.weathertestapp.domain.converter
 
-import android.content.Context
+import android.content.res.Resources
 import com.github.dm.uporov.weathertestapp.R
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
@@ -13,18 +12,14 @@ interface VisibilityFormatter {
 }
 
 private const val VISIBILITY_FORMAT = "%dm"
-private const val MAX_VISIBILITY = 10000
+private const val MAX_VISIBILITY = 10_000
 
 @ViewModelScoped
 class VisibilityFormatterImpl @Inject constructor(
-    @ApplicationContext context: Context
+    resources: Resources
 ) : VisibilityFormatter {
 
-    private val maxVisibilityText: String
-
-    init {
-        maxVisibilityText = context.resources.getString(R.string.max_visibility)
-    }
+    private val maxVisibilityText: String = resources.getString(R.string.max_visibility)
 
     override fun format(visibility: Int?): String? {
         if (visibility == null) return null

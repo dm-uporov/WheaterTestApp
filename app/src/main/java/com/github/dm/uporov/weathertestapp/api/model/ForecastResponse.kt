@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 
 data class ForecastResponse(
     @SerializedName("cod")
-    val cod: String?,
+    val cod: String? = null,
     @SerializedName("message")
-    val message: Int?,
+    val message: Int? = null,
     @SerializedName("cnt")
     val forecastsCount: Int,
     @SerializedName("list")
     val list: List<ForecastElement>,
     @SerializedName("city")
-    val city: City?
+    val city: City? = null
 )

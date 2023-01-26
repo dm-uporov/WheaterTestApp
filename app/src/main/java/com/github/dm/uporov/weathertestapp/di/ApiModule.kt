@@ -24,8 +24,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ApiModule {
 
-    private const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
-    private const val API_BASE_PATH = "/data/2.5/"
+    private const val BASE_URL = "https://api.openweathermap.org/"
     private const val API_KEY_QUERY_KEY = "appid"
 
     @Singleton
