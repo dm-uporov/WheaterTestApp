@@ -77,6 +77,14 @@ class MainViewModel @Inject constructor(
     }
 
     fun onRetryClicked() {
+        _uiState.update {
+            it.copy(
+                isLoading = true,
+                errorMessage = null,
+                forecastShortItems = emptyList(),
+                detailedItem = null
+            )
+        }
         refresh()
     }
 }

@@ -11,6 +11,6 @@
     <color name="details_icon_color">#FF777777</color>
     <color name="main_temperature_color">@color/black</color>
 
-    <color name="shimmer_background">#FFAAAAAA</color>
-    <color name="shimmer_background_semitransparent">#80CCCCCC</color>
+    <color name="shimmer_background">#FFCCCCCC</color>
+    <color name="shimmer_background_semitransparent">#40CCCCCC</color>
 </resources>

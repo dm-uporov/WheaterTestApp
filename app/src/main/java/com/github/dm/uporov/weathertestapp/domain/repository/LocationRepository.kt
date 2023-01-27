@@ -15,10 +15,10 @@ import kotlin.coroutines.suspendCoroutine
 interface LocationRepository {
 
     @Throws(LocationPermissionDeniedException::class, LocationFetchingException::class)
-    suspend fun getLastLocation(): Location
+    suspend fun getLastLocation(): Location?
 
     @Throws(LocationPermissionDeniedException::class, LocationFetchingException::class)
-    suspend fun getCurrentLocation(): Location
+    suspend fun getCurrentLocation(): Location?
 }
 
 @Singleton
@@ -30,7 +30,7 @@ class LocationRepositoryImpl @Inject constructor(
     private var lastKnownLocation: Location? = null
 
     @SuppressLint("MissingPermission")
-    override suspend fun getLastLocation(): Location {
+    override suspend fun getLastLocation(): Location? {
         val lastLocation = lastKnownLocation
         if (lastLocation != null) return lastLocation
 
@@ -56,7 +56,7 @@ class LocationRepositoryImpl @Inject constructor(
     }
 
     @SuppressLint("MissingPermission")
-    override suspend fun getCurrentLocation(): Location {
+    override suspend fun getCurrentLocation(): Location? {
         return suspendCoroutine { continuation ->
             if (!permissionsRepository.isLocationPermissionGranted) {
                 continuation.resumeWithException(LocationPermissionDeniedException())

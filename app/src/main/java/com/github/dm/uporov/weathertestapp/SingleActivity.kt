@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.github.dm.uporov.weathertestapp.domain.repository.ConnectivityMonitor
 import com.github.dm.uporov.weathertestapp.domain.repository.GrantedPermissionsRepository
 import com.github.dm.uporov.weathertestapp.ui.main_screen.MainFragment
 import com.github.dm.uporov.weathertestapp.ui.permission_screen.OnImportantPermissionGrantedCallback
@@ -18,6 +19,8 @@ class SingleActivity : AppCompatActivity(), OnImportantPermissionGrantedCallback
 
     @Inject
     lateinit var grantedPermissionsRepository: GrantedPermissionsRepository
+    @Inject
+    lateinit var connectivityMonitor: ConnectivityMonitor
 
     private var hasLocationPermission: Boolean = false
 
@@ -51,6 +54,11 @@ class SingleActivity : AppCompatActivity(), OnImportantPermissionGrantedCallback
     override fun onPause() {
         super.onPause()
         viewModel.onApplicationPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        connectivityMonitor.stopMonitoring()
     }
 
     private fun navigate(hasLocationPermission: Boolean) {

@@ -94,6 +94,14 @@ object ApplicationModule {
 
         @Singleton
         @Binds
+        fun bindIsInternetConnectedRepository(repository: IsInternetConnectedRepositoryImpl): IsInternetConnectedRepository
+
+        @Singleton
+        @Binds
+        fun bindConnectivityMonitor(repository: IsInternetConnectedRepositoryImpl): ConnectivityMonitor
+
+        @Singleton
+        @Binds
         fun bindGrantedPermissionsRepository(repository: GrantedPermissionsRepositoryImpl): GrantedPermissionsRepository
 
         @Singleton

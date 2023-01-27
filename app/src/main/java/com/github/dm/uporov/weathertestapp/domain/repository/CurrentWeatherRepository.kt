@@ -20,7 +20,7 @@ class CurrentWeatherRepositoryImpl @Inject constructor(
 ) : CurrentWeatherRepository {
 
     override suspend fun getCurrentWeather(): CurrentWeatherResponse? {
-        val location = locationRepository.getLastLocation()
+        val location = locationRepository.getLastLocation() ?: throw LocationFetchingException()
 
         return remoteDataSource.getCurrentWeather(location.latitude, location.longitude)
     }

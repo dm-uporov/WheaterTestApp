@@ -3,6 +3,8 @@ package com.github.dm.uporov.weathertestapp.di
 import com.github.dm.uporov.weathertestapp.BuildConfig
 import com.github.dm.uporov.weathertestapp.api.WeatherApi
 import com.github.dm.uporov.weathertestapp.api.adapter.TimestampAdapter
+import com.github.dm.uporov.weathertestapp.api.exception.NetworkIsNotAvailableException
+import com.github.dm.uporov.weathertestapp.domain.repository.IsInternetConnectedRepository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -13,9 +15,11 @@ import dagger.multibindings.IntoSet
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 import java.net.URL
 import java.sql.Timestamp
 import javax.inject.Singleton
@@ -76,6 +80,22 @@ object ApiModule {
                 .build()
 
             chain.proceed(request)
+        }
+    }
+
+    @Singleton
+    @Provides
+    @IntoSet
+    fun provideConnectivityCheckerInterceptor(
+        repository: IsInternetConnectedRepository
+    ): Interceptor {
+        return Interceptor { chain ->
+            if (!repository.isInternetConnected) throw NetworkIsNotAvailableException()
+
+            chain.request()
+                .newBuilder()
+                .build()
+                .let(chain::proceed)
         }
     }
 

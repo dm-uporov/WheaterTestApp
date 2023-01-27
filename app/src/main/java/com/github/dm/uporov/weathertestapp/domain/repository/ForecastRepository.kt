@@ -30,7 +30,7 @@ class ForecastRepositoryImpl @Inject constructor(
             throw e
         } catch (e: Throwable) {
             locationRepository.getLastLocation()
-        }
+        } ?: throw LocationFetchingException()
 
         val forecastResponse = forecastDataSource.getForecast(location.latitude, location.longitude)
             ?: throw ServerErrorException()
