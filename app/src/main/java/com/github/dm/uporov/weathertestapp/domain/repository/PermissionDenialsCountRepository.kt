@@ -4,30 +4,30 @@ import android.content.SharedPreferences
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
-interface PermissionDenialCountRepository {
+interface PermissionDenialsCountRepository {
 
-    val permissionDenialCount: Int
+    val permissionDenialsCount: Int
 
     fun increasePermissionDenials()
 }
 
-private const val PERMISSION_DENIAL_COUNT_KEY = "permission_denials_count"
+private const val PERMISSION_DENIALS_COUNT_KEY = "permission_denials_count"
 
 @ViewModelScoped
-class PermissionDenialCountRepositoryImpl @Inject constructor(
+class PermissionDenialsCountRepositoryImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
-) : PermissionDenialCountRepository {
+) : PermissionDenialsCountRepository {
 
     private var _permissionDenialCount: Int =
-        sharedPreferences.getInt(PERMISSION_DENIAL_COUNT_KEY, 0)
+        sharedPreferences.getInt(PERMISSION_DENIALS_COUNT_KEY, 0)
 
-    override val permissionDenialCount: Int
+    override val permissionDenialsCount: Int
         get() = _permissionDenialCount
 
     override fun increasePermissionDenials() {
         _permissionDenialCount++
         sharedPreferences.edit()
-            .putInt(PERMISSION_DENIAL_COUNT_KEY, _permissionDenialCount)
+            .putInt(PERMISSION_DENIALS_COUNT_KEY, _permissionDenialCount)
             .apply()
     }
 }

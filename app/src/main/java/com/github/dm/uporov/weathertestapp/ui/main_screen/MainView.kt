@@ -14,6 +14,7 @@ import com.github.dm.uporov.weathertestapp.ui.main_screen.items.OnForecastItemCl
 import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastDetailedItem
 import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastShortItem
 import com.github.dm.uporov.weathertestapp.utils.LeftBorderSnapHelper
+import com.github.dm.uporov.weathertestapp.utils.ScaleLeftElementLayoutManager
 import com.github.dm.uporov.weathertestapp.utils.SnapPositionScrollListener
 import com.github.dm.uporov.weathertestapp.utils.bindText
 
@@ -81,6 +82,10 @@ class MainViewImpl(
         adapter.onForecastItemClickListener = this
         snapHelper.attachToRecyclerView(recyclerView)
         recyclerView.addOnScrollListener(snapPositionScrollListener)
+        recyclerView.layoutManager = ScaleLeftElementLayoutManager(
+            context = view.context,
+            elementWidth = R.dimen.forecast_card_size
+        )
 
         location = view.findViewById(R.id.location)
         locationIcon = view.findViewById(R.id.location_icon)

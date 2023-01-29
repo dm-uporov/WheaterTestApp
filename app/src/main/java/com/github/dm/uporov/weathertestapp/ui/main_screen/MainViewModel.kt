@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.dm.uporov.weathertestapp.domain.converter.ErrorFormatter
 import com.github.dm.uporov.weathertestapp.domain.repository.ForecastRepository
-import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastDetailedItem
+import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastUiModel
 import com.github.dm.uporov.weathertestapp.ui.main_screen.model.MainUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,71 +22,65 @@ class MainViewModel @Inject constructor(
     private val errorFormatter: ErrorFormatter,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(
-        MainUiState(
-            isLoading = true,
-            errorMessage = null,
-            forecastShortItems = emptyList(),
-            detailedItem = null
-        )
-    )
+    private val _uiState = MutableStateFlow<MainUiState>(MainUiState.Loading)
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
-    private var detailedItems: List<ForecastDetailedItem> = emptyList()
+    private var loadedForecast: ForecastUiModel? = null
     private var selectedItem: Int = 0
 
+    private var job: Job? = null
+
     init {
+        refresh()
         refresh()
     }
 
     private fun refresh() {
-        viewModelScope.launch {
+        job?.cancel()
+        _uiState.update { MainUiState.Loading }
+
+        job = viewModelScope.launch {
             try {
                 val forecast = forecastRepository.getForecast()
-                detailedItems = forecast.detailedItems
-                if (selectedItem >= detailedItems.count()) {
+                loadedForecast = forecast
+                if (selectedItem >= forecast.detailedItems.count()) {
                     selectedItem = 0
                 }
                 _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        errorMessage = null,
-                        forecastShortItems = forecast.shortItems,
-                        detailedItem = detailedItems[selectedItem]
-                    )
+                    MainUiState.Loaded(forecast.shortItems, forecast.detailedItems[selectedItem])
                 }
+            } catch (e: CancellationException) {
+                // Do nothing
             } catch (e: Throwable) {
                 _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        errorMessage = errorFormatter.format(e),
-                        forecastShortItems = emptyList(),
-                        detailedItem = null
-                    )
+                    MainUiState.Error(errorFormatter.format(e))
                 }
             }
         }
     }
 
     fun onForecastItemClicked(position: Int) {
+        if (position == selectedItem) return
+
         selectedItem = position
-        _uiState.update {
-            it.copy(
-                isLoading = false,
-                detailedItem = detailedItems[position]
-            )
+
+        val forecast = loadedForecast
+        // it is unlikely, but allows us not to use '?' operator
+        if (forecast == null) {
+            refresh()
+        } else {
+            _uiState.update {
+                MainUiState.Loaded(forecast.shortItems, forecast.detailedItems[position])
+            }
         }
     }
 
     fun onRetryClicked() {
-        _uiState.update {
-            it.copy(
-                isLoading = true,
-                errorMessage = null,
-                forecastShortItems = emptyList(),
-                detailedItem = null
-            )
-        }
         refresh()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        job?.cancel()
     }
 }

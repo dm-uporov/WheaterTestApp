@@ -3,7 +3,7 @@ package com.github.dm.uporov.weathertestapp.ui.permission_screen
 import android.os.Build
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.dm.uporov.weathertestapp.domain.repository.PermissionDenialCountRepository
+import com.github.dm.uporov.weathertestapp.domain.repository.PermissionDenialsCountRepository
 import com.github.dm.uporov.weathertestapp.ui.permission_screen.model.PermissionNotGrantedUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ private const val MAX_DENIAL_COUNT = 2
 
 @HiltViewModel
 class PermissionIsNotGrantedViewModel @Inject constructor(
-    private val permissionDenialCountRepository: PermissionDenialCountRepository
+    private val permissionDenialsCountRepository: PermissionDenialsCountRepository
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<PermissionNotGrantedUIState> =
@@ -31,11 +31,11 @@ class PermissionIsNotGrantedViewModel @Inject constructor(
 
     fun onLocationPermissionDenied(shouldShowRequestPermissionRationale: Boolean) {
         // Did user deny permission for the first time?
-        if ((permissionDenialCountRepository.permissionDenialCount == 0 && shouldShowRequestPermissionRationale) ||
+        if ((permissionDenialsCountRepository.permissionDenialsCount == 0 && shouldShowRequestPermissionRationale) ||
             // Or did user deny permission for the second time?
-            (permissionDenialCountRepository.permissionDenialCount == 1 && !shouldShowRequestPermissionRationale)
+            (permissionDenialsCountRepository.permissionDenialsCount == 1 && !shouldShowRequestPermissionRationale)
         ) {
-            permissionDenialCountRepository.increasePermissionDenials()
+            permissionDenialsCountRepository.increasePermissionDenials()
         }
         updateState(shouldShowRequestPermissionRationale)
     }
@@ -45,7 +45,7 @@ class PermissionIsNotGrantedViewModel @Inject constructor(
         _uiState.update {
             when {
                 shouldShowRequestPermissionRationale -> PermissionNotGrantedUIState.CanAskForPermissionUIState
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && permissionDenialCountRepository.permissionDenialCount == MAX_DENIAL_COUNT ->
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && permissionDenialsCountRepository.permissionDenialsCount == MAX_DENIAL_COUNT ->
                     PermissionNotGrantedUIState.NeedToGoToSettingsUIState
                 else -> PermissionNotGrantedUIState.CanAskForPermissionUIState
             }

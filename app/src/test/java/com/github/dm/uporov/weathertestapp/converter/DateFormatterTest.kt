@@ -5,7 +5,6 @@ import com.github.dm.uporov.weathertestapp.domain.converter.DateFormatter
 import com.github.dm.uporov.weathertestapp.domain.converter.DateFormatterImpl
 import org.junit.Assert.assertEquals
 import org.junit.Test
-
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock

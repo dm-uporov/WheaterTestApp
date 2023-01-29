@@ -4,12 +4,12 @@ import com.github.dm.uporov.weathertestapp.currentWeatherResponse
 import com.github.dm.uporov.weathertestapp.domain.repository.CurrentWeatherRepository
 import com.github.dm.uporov.weathertestapp.domain.repository.CurrentWeatherRepositoryImpl
 import com.github.dm.uporov.weathertestapp.domain.repository.LocationRepository
-import com.github.dm.uporov.weathertestapp.domain.source.CurrentWeatherRemoteDataSource
+import com.github.dm.uporov.weathertestapp.api.datasource.CurrentWeatherRemoteDataSource
+import com.github.dm.uporov.weathertestapp.domain.exception.LocationFetchingException
 import com.github.dm.uporov.weathertestapp.locationMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
 import org.junit.Test
 import org.mockito.kotlin.*
 
@@ -39,31 +39,52 @@ class CurrentWeatherRepositoryTest {
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun getCurrentWeather_doNotCallApiWhenLocationReturnedException() = runTest {
+    @Test(expected = LocationFetchingException::class)
+    fun getCurrentWeather_locationReturnedNull_throwUpLocationFetchingException() = runTest {
         val locationRepositoryMock = mock<LocationRepository> {
-            onBlocking { getLastLocation() } doThrow RuntimeException()
+            onBlocking { getLastLocation() } doReturn null
         }
-        val remoteDataSourceMock = mock<CurrentWeatherRemoteDataSource> {
-            onBlocking { getCurrentWeather(any(), any()) } doReturn currentWeatherResponse()
-        }
+        val remoteDataSourceMock = mock<CurrentWeatherRemoteDataSource>()
         val repository: CurrentWeatherRepository = CurrentWeatherRepositoryImpl(
             remoteDataSource = remoteDataSourceMock,
             locationRepository = locationRepositoryMock,
         )
 
-        /* When */
-        val weather = repository.getCurrentWeather()
-        /* Then */
-        assertNull(weather)
-        verify(locationRepositoryMock).getLastLocation()
-        verifyNoInteractions(remoteDataSourceMock)
+        /* Should throw LocationFetchingException */
+        try {
+            repository.getCurrentWeather()
+        } finally {
+            verify(locationRepositoryMock).getLastLocation()
+            verifyNoInteractions(remoteDataSourceMock)
+        }
     }
 
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun getCurrentWeather_onApiExceptionReturnNull() = runTest {
+    @Test(expected = RuntimeException::class)
+    fun getCurrentWeather_locationThrowsException_throwUpTheException() = runTest {
+        val locationRepositoryMock = mock<LocationRepository> {
+            onBlocking { getLastLocation() } doThrow RuntimeException()
+        }
+        val remoteDataSourceMock = mock<CurrentWeatherRemoteDataSource>()
+        val repository: CurrentWeatherRepository = CurrentWeatherRepositoryImpl(
+            remoteDataSource = remoteDataSourceMock,
+            locationRepository = locationRepositoryMock,
+        )
+
+        /* Should throw RuntimeException */
+        try {
+            repository.getCurrentWeather()
+        } finally {
+            verify(locationRepositoryMock).getLastLocation()
+            verifyNoInteractions(remoteDataSourceMock)
+        }
+    }
+
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test(expected = RuntimeException::class)
+    fun getCurrentWeather_apiThrowsException_throwUpTheException() = runTest {
         val locationMock = locationMock(76.54, 65.432)
         val locationRepositoryMock = mock<LocationRepository> {
             onBlocking { getLastLocation() } doReturn locationMock
@@ -76,11 +97,12 @@ class CurrentWeatherRepositoryTest {
             locationRepository = locationRepositoryMock,
         )
 
-        /* When */
-        val weather = repository.getCurrentWeather()
-        /* Then */
-        assertNull(weather)
-        verify(locationRepositoryMock).getLastLocation()
-        verify(remoteDataSourceMock).getCurrentWeather(76.54, 65.432)
+        /* Should throw RuntimeException */
+        try {
+            repository.getCurrentWeather()
+        } finally {
+            verify(locationRepositoryMock).getLastLocation()
+            verify(remoteDataSourceMock).getCurrentWeather(76.54, 65.432)
+        }
     }
 }

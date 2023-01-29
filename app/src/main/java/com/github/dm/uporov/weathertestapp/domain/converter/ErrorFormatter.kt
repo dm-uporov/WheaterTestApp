@@ -4,8 +4,8 @@ import android.content.res.Resources
 import com.github.dm.uporov.weathertestapp.R
 import com.github.dm.uporov.weathertestapp.api.exception.NetworkIsNotAvailableException
 import com.github.dm.uporov.weathertestapp.api.exception.ServerErrorException
-import com.github.dm.uporov.weathertestapp.domain.exceprion.LocationFetchingException
-import com.github.dm.uporov.weathertestapp.domain.exceprion.LocationPermissionDeniedException
+import com.github.dm.uporov.weathertestapp.domain.exception.LocationFetchingException
+import com.github.dm.uporov.weathertestapp.domain.exception.LocationPermissionDeniedException
 import javax.inject.Inject
 import javax.inject.Singleton
 

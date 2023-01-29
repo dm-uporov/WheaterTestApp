@@ -5,7 +5,7 @@ import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import java.sql.Timestamp
 
-class TimestampAdapter : TypeAdapter<Timestamp>() {
+class OpenWeatherApiTimestampAdapter : TypeAdapter<Timestamp>() {
 
     override fun write(writer: JsonWriter, value: Timestamp) {
         writer.value(value.time / 1000)

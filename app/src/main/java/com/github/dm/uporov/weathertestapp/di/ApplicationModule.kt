@@ -24,7 +24,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
-import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -95,10 +94,6 @@ object ApplicationModule {
         @Singleton
         @Binds
         fun bindIsInternetConnectedRepository(repository: IsInternetConnectedRepositoryImpl): IsInternetConnectedRepository
-
-        @Singleton
-        @Binds
-        fun bindConnectivityMonitor(repository: IsInternetConnectedRepositoryImpl): ConnectivityMonitor
 
         @Singleton
         @Binds

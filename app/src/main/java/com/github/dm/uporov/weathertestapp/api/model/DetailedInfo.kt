@@ -17,7 +17,7 @@ data class DetailedInfo(
     @SerializedName("sea_level")
     val seaLevel: Int? = null,
     @SerializedName("grnd_level")
-    val grndLevel: Int? = null,
+    val groundLevel: Int? = null,
     @SerializedName("humidity")
     val humidityPercents: Int? = null,
     @SerializedName("temp_kf")

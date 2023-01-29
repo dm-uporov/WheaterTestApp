@@ -3,9 +3,9 @@ package com.github.dm.uporov.weathertestapp.domain.repository
 import android.location.Location
 import com.github.dm.uporov.weathertestapp.api.exception.ServerErrorException
 import com.github.dm.uporov.weathertestapp.domain.converter.ForecastItemsConverter
-import com.github.dm.uporov.weathertestapp.domain.exceprion.LocationFetchingException
-import com.github.dm.uporov.weathertestapp.domain.exceprion.LocationPermissionDeniedException
-import com.github.dm.uporov.weathertestapp.domain.source.ForecastRemoteDataSource
+import com.github.dm.uporov.weathertestapp.domain.exception.LocationFetchingException
+import com.github.dm.uporov.weathertestapp.domain.exception.LocationPermissionDeniedException
+import com.github.dm.uporov.weathertestapp.api.datasource.ForecastRemoteDataSource
 import com.github.dm.uporov.weathertestapp.ui.main_screen.model.ForecastUiModel
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject

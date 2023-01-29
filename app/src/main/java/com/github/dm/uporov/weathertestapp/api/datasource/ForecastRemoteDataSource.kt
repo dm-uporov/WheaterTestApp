@@ -1,4 +1,4 @@
-package com.github.dm.uporov.weathertestapp.domain.source
+package com.github.dm.uporov.weathertestapp.api.datasource
 
 import com.github.dm.uporov.weathertestapp.api.WeatherApi
 import com.github.dm.uporov.weathertestapp.api.model.ForecastResponse

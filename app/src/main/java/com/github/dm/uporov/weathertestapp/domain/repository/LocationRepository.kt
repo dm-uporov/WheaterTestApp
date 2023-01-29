@@ -2,8 +2,8 @@ package com.github.dm.uporov.weathertestapp.domain.repository
 
 import android.annotation.SuppressLint
 import android.location.Location
-import com.github.dm.uporov.weathertestapp.domain.exceprion.LocationFetchingException
-import com.github.dm.uporov.weathertestapp.domain.exceprion.LocationPermissionDeniedException
+import com.github.dm.uporov.weathertestapp.domain.exception.LocationFetchingException
+import com.github.dm.uporov.weathertestapp.domain.exception.LocationPermissionDeniedException
 import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
 import javax.inject.Inject

@@ -1,8 +1,6 @@
 package com.github.dm.uporov.weathertestapp.converter
 
 import com.github.dm.uporov.weathertestapp.api.model.City
-import com.github.dm.uporov.weathertestapp.api.model.ForecastElement
-import com.github.dm.uporov.weathertestapp.api.model.ForecastResponse
 import com.github.dm.uporov.weathertestapp.domain.converter.ForecastItemsConverter
 import com.github.dm.uporov.weathertestapp.domain.converter.ForecastItemsConverterImpl
 import com.github.dm.uporov.weathertestapp.forecastResponse
@@ -11,7 +9,6 @@ import org.junit.Test
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
-import java.sql.Timestamp
 
 class ForecastItemsConverterTest {
 

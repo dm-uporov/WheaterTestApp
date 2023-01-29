@@ -2,11 +2,11 @@ package com.github.dm.uporov.weathertestapp.repository
 
 import com.github.dm.uporov.weathertestapp.api.exception.ServerErrorException
 import com.github.dm.uporov.weathertestapp.domain.converter.ForecastItemsConverter
-import com.github.dm.uporov.weathertestapp.domain.exceprion.LocationPermissionDeniedException
+import com.github.dm.uporov.weathertestapp.domain.exception.LocationPermissionDeniedException
 import com.github.dm.uporov.weathertestapp.domain.repository.ForecastRepository
 import com.github.dm.uporov.weathertestapp.domain.repository.ForecastRepositoryImpl
 import com.github.dm.uporov.weathertestapp.domain.repository.LocationRepository
-import com.github.dm.uporov.weathertestapp.domain.source.ForecastRemoteDataSource
+import com.github.dm.uporov.weathertestapp.api.datasource.ForecastRemoteDataSource
 import com.github.dm.uporov.weathertestapp.forecastResponse
 import com.github.dm.uporov.weathertestapp.forecastUiModel
 import com.github.dm.uporov.weathertestapp.locationMock

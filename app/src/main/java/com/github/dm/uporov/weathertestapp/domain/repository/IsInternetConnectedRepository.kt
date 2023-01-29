@@ -7,13 +7,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
-interface ConnectivityMonitor {
-
-    fun startMonitoring()
-
-    fun stopMonitoring()
-}
-
 interface IsInternetConnectedRepository {
 
     val isInternetConnected: Boolean
@@ -22,7 +15,7 @@ interface IsInternetConnectedRepository {
 @Singleton
 class IsInternetConnectedRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
-) : ConnectivityManager.NetworkCallback(), ConnectivityMonitor, IsInternetConnectedRepository {
+) : ConnectivityManager.NetworkCallback(), IsInternetConnectedRepository {
 
     private var _isInternetConnected = true
 
@@ -32,7 +25,7 @@ class IsInternetConnectedRepositoryImpl @Inject constructor(
     private val connectivityManager = context.getSystemService<ConnectivityManager>()
 
     init {
-        startMonitoring()
+        connectivityManager?.registerNetworkCallback(NetworkRequest.Builder().build(), this)
     }
 
     override fun onAvailable(network: Network) {
@@ -52,14 +45,6 @@ class IsInternetConnectedRepositoryImpl @Inject constructor(
     }
 
     override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {}
-
-    override fun startMonitoring() {
-        connectivityManager?.registerNetworkCallback(NetworkRequest.Builder().build(), this)
-    }
-
-    override fun stopMonitoring() {
-        connectivityManager?.unregisterNetworkCallback(this)
-    }
 
     private fun updateConnectionStatus(networkCapabilities: NetworkCapabilities) {
         _isInternetConnected =

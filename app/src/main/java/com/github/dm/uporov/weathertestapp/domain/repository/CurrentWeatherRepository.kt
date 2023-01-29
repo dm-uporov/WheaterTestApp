@@ -1,9 +1,9 @@
 package com.github.dm.uporov.weathertestapp.domain.repository
 
 import com.github.dm.uporov.weathertestapp.api.model.CurrentWeatherResponse
-import com.github.dm.uporov.weathertestapp.domain.exceprion.LocationFetchingException
-import com.github.dm.uporov.weathertestapp.domain.exceprion.LocationPermissionDeniedException
-import com.github.dm.uporov.weathertestapp.domain.source.CurrentWeatherRemoteDataSource
+import com.github.dm.uporov.weathertestapp.domain.exception.LocationFetchingException
+import com.github.dm.uporov.weathertestapp.domain.exception.LocationPermissionDeniedException
+import com.github.dm.uporov.weathertestapp.api.datasource.CurrentWeatherRemoteDataSource
 import javax.inject.Inject
 import javax.inject.Singleton
 

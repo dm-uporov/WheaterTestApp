@@ -29,7 +29,6 @@
                 android:paddingStart="16dp"
                 android:paddingTop="16dp"
                 android:paddingEnd="1000dp"
-                app:layoutManager=".utils.ScaleLeftElementLayoutManager"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView

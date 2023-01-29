@@ -9,6 +9,9 @@ import kotlin.math.abs
 
 private const val SMALL_FLING_VELOCITY_DP = 50
 
+/** This helper class is extension over LinearSnapHelper.
+ * It snaps selected items to the left border of the view.
+ *  **/
 class LeftBorderSnapHelper @Inject constructor() : LinearSnapHelper() {
 
     private var orientationHelper: OrientationHelper? = null
@@ -30,8 +33,9 @@ class LeftBorderSnapHelper @Inject constructor() : LinearSnapHelper() {
     }
 
     fun snapToView(view: View, recyclerView: RecyclerView) {
-        recyclerView.fling(SMALL_FLING_VELOCITY_DP.dp, 0)
         forcedSnapView = view
+        /** The small fling forces the recyclerView to start a snap computation by this snap helper */
+        recyclerView.fling(SMALL_FLING_VELOCITY_DP.dp, 0)
     }
 
     override fun calculateDistanceToFinalSnap(
@@ -39,7 +43,8 @@ class LeftBorderSnapHelper @Inject constructor() : LinearSnapHelper() {
         targetView: View
     ): IntArray {
         val resultArray = IntArray(2)
-        val horizontalDistance = distanceToLeftBorder(targetView, getHorizontalHelper(layoutManager))
+        val horizontalDistance =
+            distanceToLeftBorder(targetView, getHorizontalHelper(layoutManager))
         resultArray[0] = horizontalDistance
         if (targetView == forcedSnapView && horizontalDistance == 0) {
             forcedSnapView = null

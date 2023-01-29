@@ -1,8 +1,8 @@
 package com.github.dm.uporov.weathertestapp.utils
 
 import android.content.Context
-import android.util.AttributeSet
 import android.view.View
+import androidx.annotation.DimenRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.OrientationHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -10,28 +10,26 @@ import androidx.recyclerview.widget.RecyclerView.Recycler
 import kotlin.math.abs
 
 
-class ScaleLeftElementLayoutManager : LinearLayoutManager {
+/**
+ * This layout manager scales the very left element
+ *  **/
+class ScaleLeftElementLayoutManager(
+    context: Context,
+    @DimenRes elementWidth: Int,
+    private val minScale: Float = 1f,
+    private val maxScale: Float = 1.2f,
+) : LinearLayoutManager(context, RecyclerView.HORIZONTAL, false) {
 
-    private val minScale = 1f
-    private val maxScale = 1.2f
-    private val leftScalePointX = (-20).dp
-    private val rightScalePointX = 50.dp
+    private val leftScalePointX: Int
+    private val rightScalePointX: Int
 
     private val helper: OrientationHelper = OrientationHelper.createHorizontalHelper(this)
 
-    constructor(context: Context?) : super(context)
-
-    constructor(
-        context: Context?, @RecyclerView.Orientation orientation: Int,
-        reverseLayout: Boolean
-    ) : super(context, orientation, reverseLayout)
-
-    constructor(
-        context: Context?,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
-    ) : super(context, attrs, defStyleAttr, defStyleRes)
+    init {
+        val elementWidthPx = context.resources.getDimensionPixelSize(elementWidth)
+        leftScalePointX = -(elementWidthPx / 4)
+        rightScalePointX = elementWidthPx
+    }
 
     override fun onLayoutCompleted(state: RecyclerView.State?) {
         super.onLayoutCompleted(state)

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CurrentWeatherResponse(
     @SerializedName("coord")
-    val coord: Coord? = null,
+    val coordinates: Coordinates? = null,
     @SerializedName("weather")
     val weather: List<WeatherDescription>,
     @SerializedName("base")

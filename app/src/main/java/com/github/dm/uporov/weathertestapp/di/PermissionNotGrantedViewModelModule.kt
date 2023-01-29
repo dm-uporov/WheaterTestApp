@@ -1,7 +1,7 @@
 package com.github.dm.uporov.weathertestapp.di
 
-import com.github.dm.uporov.weathertestapp.domain.repository.PermissionDenialCountRepository
-import com.github.dm.uporov.weathertestapp.domain.repository.PermissionDenialCountRepositoryImpl
+import com.github.dm.uporov.weathertestapp.domain.repository.PermissionDenialsCountRepository
+import com.github.dm.uporov.weathertestapp.domain.repository.PermissionDenialsCountRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,6 +14,6 @@ interface PermissionNotGrantedViewModelModule {
 
     @ViewModelScoped
     @Binds
-    fun bindWeatherRepository(repository: PermissionDenialCountRepositoryImpl): PermissionDenialCountRepository
+    fun bindWeatherRepository(repository: PermissionDenialsCountRepositoryImpl): PermissionDenialsCountRepository
 
 }

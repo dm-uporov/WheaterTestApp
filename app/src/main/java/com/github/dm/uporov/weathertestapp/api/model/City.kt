@@ -9,7 +9,7 @@ data class City(
     @SerializedName("name")
     val name: String? = null,
     @SerializedName("coord")
-    val coord: Coord? = null,
+    val coordinates: Coordinates? = null,
     @SerializedName("country")
     val country: String? = null,
     @SerializedName("population")

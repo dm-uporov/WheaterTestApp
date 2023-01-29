@@ -3,7 +3,7 @@ package com.github.dm.uporov.weathertestapp.api.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Coord(
+data class Coordinates(
     @SerializedName("lat")
     val lat: Double?,
     @SerializedName("lon")

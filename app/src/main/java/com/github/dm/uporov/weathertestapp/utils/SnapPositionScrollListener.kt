@@ -3,6 +3,10 @@ package com.github.dm.uporov.weathertestapp.utils
 import androidx.recyclerview.widget.RecyclerView
 import javax.inject.Inject
 
+
+/**
+ * This ScrollListener helps to understand, when snapping is happening and notifies its listener about new selected item
+ *  **/
 class SnapPositionScrollListener @Inject constructor(
     private val snapHelper: LeftBorderSnapHelper
 ) : RecyclerView.OnScrollListener() {
@@ -17,7 +21,7 @@ class SnapPositionScrollListener @Inject constructor(
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-             maybeNotifySnapPositionChange(recyclerView)
+            maybeNotifySnapPositionChange(recyclerView)
         }
     }
 
