@@ -32,7 +32,6 @@ class MainViewModel @Inject constructor(
 
     init {
         refresh()
-        refresh()
     }
 
     private fun refresh() {
